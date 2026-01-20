@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
     MapPin,
     ArrowRight,
@@ -25,6 +26,7 @@ import {
     MessageCircle
 } from 'lucide-react';
 import Link from 'next/link';
+import { fadeInUp, scrollReveal, staggerContainer, staggerItem } from '@/utils/animations';
 
 const Guide = () => {
     const [openAccordion, setOpenAccordion] = useState(null);
@@ -74,18 +76,40 @@ const Guide = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <span className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em] mb-4 block animate-in fade-in slide-in-from-bottom-4 duration-700">Credence Realtor</span>
-                    <h1 className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
+                    <motion.span 
+                        className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em] mb-4 block"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        Credence Realtor
+                    </motion.span>
+                    <motion.h1 
+                        className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
                         Dubai Property <br /> <span className="text-[#C5A365]"> Buyers Guide</span>
-                    </h1>
-                    <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200 mb-10">
+                    </motion.h1>
+                    <motion.p 
+                        className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         Thinking of buying a new home in Dubai? Not sure how the
                         process works? This guide walks you through every stage of
                         buying property in Dubai, with expert insights to help you make
                         informed decisions.
-                    </p>
+                    </motion.p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 mb-4 justify-center animate-in fade-in slide-in-from-bottom-7 duration-700 delay-300">
+                    <motion.div 
+                        className="flex flex-col sm:flex-row gap-4 mb-4 justify-center"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                    >
                         <Link href="/properties" className="bg-white hover:bg-[#C5A365] text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-white/25 hover:shadow-[#C5A365]/25 flex items-center gap-2">
                             Get Property Options <ArrowRight size={16} />
                         </Link>
@@ -93,13 +117,19 @@ const Guide = () => {
                             <MessageCircle size={20} />
                             WhatsApp Now
                         </a>
-                    </div>
+                    </motion.div>
                 </div>
             </section>
             {/* 3. Buying Process Step-by-Step (Timeline) */}
-            <section className="py-24 bg-[#F9F9F9]">
+            <motion.section 
+                className="py-24 bg-[#F9F9F9]"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-4xl">
-                    <div className="mb-16">
+                    <motion.div 
+                        className="mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">The Process</span>
                         <h2 className="text-4xl md:text-5xl font-display text-secondary mb-6 leading-tight">
                             Buying Property in Dubai: <br /> Step-by-Step Guide
@@ -107,9 +137,12 @@ const Guide = () => {
                         <p className="text-gray-500 max-w-2xl leading-relaxed">
                             The process of buying property in Dubai is straightforward when broken down into clear stages. Below, we walk you through each step of a typical transaction, from initial search to receiving your title deed
                         </p>
-                    </div>
+                    </motion.div>
 
-                    <div className="relative space-y-12">
+                    <motion.div 
+                        className="relative space-y-12"
+                        {...staggerContainer}
+                    >
                         {/* Seamless Line */}
                         <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gray-200 md:left-8 -z-10"></div>
 
@@ -121,7 +154,11 @@ const Guide = () => {
                             { num: "05", title: "Transfer at DLD", desc: "Visit the Dubai Land Department or a trustee office to complete the official ownership transfer and pay applicable fees.", icon: <Landmark size={22} /> },
                             { num: "06", title: "Receive Title Deed", desc: "Congratulations! You'll receive your title deed, and the property is officially registered under your name.", icon: <Key size={22} /> }
                         ].map((step, idx) => (
-                            <div key={idx} className="flex gap-6 md:gap-10 items-start group">
+                            <motion.div 
+                                key={idx} 
+                                className="flex gap-6 md:gap-10 items-start group"
+                                variants={staggerItem}
+                            >
                                 <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center shrink-0 relative z-10 group-hover:border-[#C5A365] transition-colors">
                                     <div className="text-[#C5A365]">{step.icon}</div>
                                     <div className="absolute -top-3 -right-3 w-7 h-7 bg-[#1A1A1A] rounded-full text-white text-xs flex items-center justify-center font-bold border-2 border-[#F9F9F9]">
@@ -132,12 +169,15 @@ const Guide = () => {
                                     <h3 className="text-xl font-bold text-secondary mb-2">{step.title}</h3>
                                     <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Dark Card */}
-                    <div className="mt-16 bg-[#1A1A1A] rounded-2xl p-8 md:p-12 flex items-start gap-6 text-white">
+                    <motion.div 
+                        className="mt-16 bg-[#1A1A1A] rounded-2xl p-8 md:p-12 flex items-start gap-6 text-white"
+                        {...fadeInUp}
+                    >
                         <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center text-[#C5A365] shrink-0">
                             <CheckCircle2 size={24} />
                         </div>
@@ -147,11 +187,14 @@ const Guide = () => {
                                 The entire process typically takes 4-8 weeks for ready properties. Off-plan purchases follow a different timeline based on construction schedules. Your agent will guide you through every step.
                             </p>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
             {/* 2. Preparation Section (Before You Begin) */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-start">
                         {/* Left Side: Content & Image */}
@@ -176,7 +219,10 @@ const Guide = () => {
                         </div>
 
                         {/* Right Side: Cards List */}
-                        <div className="lg:w-2/3 space-y-6">
+                        <motion.div 
+                            className="lg:w-2/3 space-y-6"
+                            {...staggerContainer}
+                        >
                             {[
                                 {
                                     icon: <Briefcase size={24} />,
@@ -209,7 +255,11 @@ const Guide = () => {
                                     checks: ["Prioritize top 5 requirements", "Be flexible on secondary items", "Consider future needs"]
                                 }
                             ].map((card, idx) => (
-                                <div key={idx} className="bg-[#F9F9F9] p-8 rounded-xl border border-gray-100 flex gap-6 hover:shadow-md transition-all">
+                                <motion.div 
+                                    key={idx} 
+                                    className="bg-[#F9F9F9] p-8 rounded-xl border border-gray-100 flex gap-6 hover:shadow-md transition-all"
+                                    variants={staggerItem}
+                                >
                                     <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-[#C5A365] shrink-0 shadow-sm">
                                         {card.icon}
                                     </div>
@@ -225,46 +275,62 @@ const Guide = () => {
                                             ))}
                                         </div>
                                     </div>
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
 
 
             {/* 4. Property Types & Location */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-16">
+                    <motion.div 
+                        className="text-center mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Finding Your Fit</span>
                         <h2 className="text-4xl md:text-5xl font-display text-secondary leading-tight">
                             Choosing the Right <br /> Property Type & Location
                         </h2>
-                    </div>
+                    </motion.div>
 
                     {/* Property Types Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-24"
+                        {...staggerContainer}
+                    >
                         {[
                             { title: "Apartments", icon: <Building2 size={24} />, desc: "From studios to 4+ bedrooms, ideal for singles, couples, or families seeking low-maintenance living." },
                             { title: "Villas", icon: <Home size={24} />, desc: "Standalone homes with private gardens and pools, perfect for families wanting space and privacy." },
                             { title: "Townhouses", icon: <Landmark size={24} />, desc: "Multi-level homes within communities, offering a balance between apartment and villa living." },
                             { title: "Penthouses", icon: <Star size={24} />, desc: "Luxury top-floor residences with premium finishes, views, and exclusive amenities." },
                         ].map((type, idx) => (
-                            <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#C5A365]/30 transition-all group">
+                            <motion.div 
+                                key={idx} 
+                                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#C5A365]/30 transition-all group"
+                                variants={staggerItem}
+                            >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl flex items-center justify-center text-[#C5A365] mb-6 group-hover:bg-[#C5A365] group-hover:text-white transition-colors">
                                     {type.icon}
                                 </div>
                                 <h3 className="text-xl font-bold text-secondary mb-3">{type.title}</h3>
                                 <p className="text-gray-500 text-sm leading-relaxed">{type.desc}</p>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
 
                     {/* Location Considerations Split */}
                     <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-center">
-                        <div className="lg:w-1/2 relative h-[500px] rounded-2xl overflow-hidden w-full">
+                        <motion.div 
+                            className="lg:w-1/2 relative h-[500px] rounded-2xl overflow-hidden w-full"
+                            {...fadeInUp}
+                        >
                             <img
                                 src="/assets/guidepg-another.png"
                                 alt="Dubai Location"
@@ -278,18 +344,28 @@ const Guide = () => {
                                     Your location choice impacts daily life more than any other factor. Take time to explore different areas before deciding.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="lg:w-1/2 w-full">
+                        <motion.div 
+                            className="lg:w-1/2 w-full"
+                            {...fadeInUp}
+                        >
                             <h3 className="text-3xl font-display text-secondary mb-8">Key Location Considerations</h3>
-                            <div className="space-y-4">
+                            <motion.div 
+                                className="space-y-4"
+                                {...staggerContainer}
+                            >
                                 {[
                                     { title: "Travel Time", desc: "Consider daily commute times to work, schools, and frequent destinations.", icon: <Clock size={20} /> },
                                     { title: "Work Proximity", desc: "Being close to business districts can save hours each week and reduce stress.", icon: <Briefcase size={20} /> },
                                     { title: "Accessibility", desc: "Access to metro, major roads, airports, and essential services matters for convenience.", icon: <MapPin size={20} /> },
                                     { title: "Community Type", desc: "Family-oriented, vibrant urban, or quiet residential—choose what fits your lifestyle.", icon: <Users size={20} /> }
                                 ].map((item, idx) => (
-                                    <div key={idx} className="bg-white p-6 rounded-xl border border-gray-100 flex gap-5 hover:border-[#C5A365] transition-colors">
+                                    <motion.div 
+                                        key={idx} 
+                                        className="bg-white p-6 rounded-xl border border-gray-100 flex gap-5 hover:border-[#C5A365] transition-colors"
+                                        variants={staggerItem}
+                                    >
                                         <div className="w-10 h-10 bg-[#F5F5F5] rounded-lg flex items-center justify-center text-gray-600 shrink-0">
                                             {item.icon}
                                         </div>
@@ -297,23 +373,29 @@ const Guide = () => {
                                             <h4 className="font-bold text-secondary mb-1">{item.title}</h4>
                                             <p className="text-gray-500 text-xs leading-relaxed">{item.desc}</p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 5. FAQs */}
-            <section className="py-24 bg-white border-t border-gray-100">
+            <motion.section 
+                className="py-24 bg-white border-t border-gray-100"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-3xl">
-                    <div className="text-center mb-16">
+                    <motion.div 
+                        className="text-center mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Common Questions</span>
                         <h2 className="text-4xl md:text-5xl font-display text-secondary">
                             FAQs About Buying <br /> Property in Dubai
                         </h2>
-                    </div>
+                    </motion.div>
 
                     <div className="space-y-4">
                         {[
@@ -347,7 +429,7 @@ const Guide = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 };

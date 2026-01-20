@@ -1,17 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Bed, Bath, Square, MapPin, Phone, MessageCircle, Building2, ArrowRight } from 'lucide-react';
 import { formatPrice } from '@/lib/properties';
 
-const PropertyCard = ({ property }) => {
+const PropertyCard = ({ property, index = 0 }) => {
     return (
-        <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100">
+        <motion.div 
+            className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+        >
             {/* Image Container */}
             <div className="relative h-64 overflow-hidden">
                 <img
                     src={property.mainImage || property.image || 'https://via.placeholder.com/800x600?text=No+Image'}
                     alt={property.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
 
                 {/* Status Badge */}
@@ -76,7 +83,7 @@ const PropertyCard = ({ property }) => {
                     </a>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import {
     MessageCircle,
     ArrowRight,
@@ -23,6 +24,7 @@ import {
     ChevronUp
 } from 'lucide-react';
 import ContactDropdown from '@/components/ContactDropdown';
+import { fadeInUp, scrollReveal, staggerContainer, staggerItem } from '@/utils/animations';
 
 const Blogs = () => {
     // State for Tabs
@@ -108,20 +110,40 @@ const Blogs = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <h1 className="text-5xl md:text-7xl font-display text-white mb-2">
+                    <motion.h1 
+                        className="text-5xl md:text-7xl font-display text-white mb-2"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
                         Dubai Real Estate
-                    </h1>
-                    <h1 className="text-5xl md:text-7xl font-display text-[#C5A365] mb-8">
+                    </motion.h1>
+                    <motion.h1 
+                        className="text-5xl md:text-7xl font-display text-[#C5A365] mb-8"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
                         Guide
-                    </h1>
-                    <p className="text-gray-300 text-lg uppercase tracking-widest mb-12">
+                    </motion.h1>
+                    <motion.p 
+                        className="text-gray-300 text-lg uppercase tracking-widest mb-12"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         Your Complete Handbook to Investing & Living in Dubai
-                    </p>
-                    <p className="text-gray-300 text-lg mb-10">
+                    </motion.p>
+                    <motion.p 
+                        className="text-gray-300 text-lg mb-10"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                    >
                         Discover one of the world's most dynamic real estate markets. From tax-free<br></br>
                         investment opportunities to world-class lifestyle offerings, Dubai presents<br></br>
                         unparalleled potential for global investors and homebuyers.
-                    </p>
+                    </motion.p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4">
                         <a href="/#contact" className="bg-white text-black px-8 py-4 rounded-full font-bold text-sm hover:bg-[#C5A365] hover:text-white transition-all flex items-center gap-2">
                             Book a Free Consultation <ArrowRight size={16} />
@@ -135,10 +157,16 @@ const Blogs = () => {
             </section>
 
             {/* 2. Market Insight Section */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row items-center gap-16">
-                        <div className="flex-1">
+                        <motion.div 
+                            className="flex-1"
+                            {...fadeInUp}
+                        >
                             <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Market Insight</span>
                             <h2 className="text-4xl md:text-5xl font-display text-secondary mb-8 leading-tight">
                                 Why Dubai Continues to <br /> Attract Global Property <br /> Investors
@@ -173,8 +201,11 @@ const Blogs = () => {
                                     <span className="text-xs text-gray-400 uppercase tracking-wider">Property Tax</span>
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex-1 relative">
+                        </motion.div>
+                        <motion.div 
+                            className="flex-1 relative"
+                            {...fadeInUp}
+                        >
                             <div className="bg-gray-100 h-[630px] overflow-hidden rounded-sm relative">
                                 <img
                                     src="https://images.unsplash.com/photo-1546412414-e1885259563a?auto=format&fit=crop&q=80&w=800"
@@ -183,46 +214,65 @@ const Blogs = () => {
                                 />
                                 <div className="absolute inset-0 border-[12px] border-white/50 m-4 pointer-events-none" />
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 3. Dubai Advantage (Dark Section) */}
-            <section className="py-24 bg-[#1A1A1A]">
+            <motion.section 
+                className="py-24 bg-[#1A1A1A]"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-16">
+                    <motion.div 
+                        className="text-center mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Section One</span>
                         <h2 className="text-4xl text-white font-display mb-4">The Dubai Advantage</h2>
                         <p className="text-gray-400 max-w-2xl mx-auto">
                             Dubai offers a rare combination of high returns, lifestyle excellence, and long-term stability for property investors.
                         </p>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                        {...staggerContainer}
+                    >
                         {advantageCards.map((card, idx) => (
-                            <div key={idx} className="bg-[#222] p-8 rounded hover:bg-[#2A2A2A] transition-colors border border-white/5 group">
+                            <motion.div 
+                                key={idx} 
+                                className="bg-[#222] p-8 rounded hover:bg-[#2A2A2A] transition-colors border border-white/5 group"
+                                variants={staggerItem}
+                            >
                                 <div className="w-10 h-10 bg-[#333] rounded flex items-center justify-center text-[#C5A365] mb-6 group-hover:bg-[#C5A365] group-hover:text-black transition-colors">
                                     {card.icon}
                                 </div>
                                 <h4 className="text-white font-bold mb-3">{card.title}</h4>
                                 <p className="text-gray-500 text-sm leading-relaxed">{card.desc}</p>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 4. Communities Section */}
-            <section className="py-24 bg-[#F9F9F9]">
+            <motion.section 
+                className="py-24 bg-[#F9F9F9]"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-16">
+                    <motion.div 
+                        className="text-center mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Section Two</span>
                         <h2 className="text-4xl text-secondary font-display mb-4">Explore Dubai's Most Sought-After Communities</h2>
                         <p className="text-gray-500 max-w-2xl mx-auto">
                             Dubai spans over 4,100 sq. km, offering diverse districts designed for luxury living, family life, business hubs, and waterfront lifestyles.
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Tabs */}
                     <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -241,9 +291,19 @@ const Blogs = () => {
                     </div>
 
                     {/* Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-3 gap-8"
+                        key={activeTab}
+                        initial="initial"
+                        animate="animate"
+                        variants={staggerContainer}
+                    >
                         {communities[activeTab].map((comm, idx) => (
-                            <div key={idx} className="bg-white p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <motion.div 
+                                key={idx} 
+                                className="bg-white p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                                variants={staggerItem}
+                            >
                                 <div className="flex justify-between items-start mb-4">
                                     <h3 className="text-xl font-display text-secondary">{comm.name}</h3>
                                     <MapPin size={18} className="text-gray-300" />
@@ -263,23 +323,29 @@ const Blogs = () => {
                                     label="Speak to an Advisor"
                                     className="w-full border border-gray-200 text-gray-600 py-3 rounded text-sm hover:border-black hover:text-black transition-colors flex items-center justify-center gap-2"
                                 />
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 5. FAQ Section */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-4xl">
-                    <div className="text-center mb-16">
+                    <motion.div 
+                        className="text-center mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Section Three</span>
                         <h2 className="text-4xl text-secondary font-display mb-2">Everything You Need to Know Before</h2>
                         <h2 className="text-4xl text-secondary font-display mb-4">Buying</h2>
                         <p className="text-gray-500">
                             A comprehensive guide to navigating Dubai's property market with confidence.
                         </p>
-                    </div>
+                    </motion.div>
 
                     <div className="space-y-4 bg-[#F9F7F2] p-8 rounded-lg">
                         {faqs.map((faq, idx) => (
@@ -312,7 +378,7 @@ const Blogs = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 };

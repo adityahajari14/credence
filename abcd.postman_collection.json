@@ -1,0 +1,629 @@
+{
+	"info": {
+		"_postman_id": "tm-backend-api-collection",
+		"name": "TM Backend API Collection",
+		"description": "Complete API collection for TM Backend - Real Estate Management System\n\nThis collection includes all endpoints for:\n- Projects (with comprehensive filtering)\n- Companies (Developers & Brokerages)\n- Developers\n\nBase URL: http://localhost:3000 (or your server URL)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Root",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "Check if the server is running"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Get All Projects (Basic)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects?page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Get all projects with basic pagination. Pagination parameters can be passed in query string or request body."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects (Advanced Filters)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"city\": [\"Dubai\", \"Abu_Dhabi\"],\n  \"category\": [\"Ready_to_move\", \"Off_plan\"],\n  \"type\": [\"Apartment\", \"Villa\"],\n  \"min_price\": 500000,\n  \"max_price\": 2000000,\n  \"min_sq_ft\": 1000,\n  \"max_sq_ft\": 3000,\n  \"min_bedrooms\": [\"Two\", \"Three\"],\n  \"min_bathrooms\": [\"Two\", \"Three_Plus\"],\n  \"furnished\": [\"Furnished\", \"Semi_furnished\"],\n  \"handover_year\": 2025,\n  \"amenities\": [\"Swimming_Pool\", \"Gym\", \"Parking\"],\n  \"locality\": \"Downtown\",\n  \"search\": \"luxury apartment\",\n  \"sort_by\": \"min_price\",\n  \"sort_order\": \"asc\",\n  \"include_developer\": true,\n  \"include_brokerage\": true,\n  \"include_floor_plans\": true,\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							]
+						},
+						"description": "Get all projects with comprehensive filtering options.\n\n**Filter Options:**\n- **IDs**: `brokerage_id`, `developer_id`\n- **Basic Filters**: `city` (array), `category` (array), `type` (array), `source_type` (array), `furnished` (array), `payment_plan` (array)\n- **Price Filters**: `min_price`, `max_price`, `price_range: {min, max}`\n- **Size Filters**: `min_sq_ft`, `max_sq_ft`, `sq_ft_range: {min, max}`, `property_size`, `property_size_range: {min, max}`\n- **Bedroom/Bathroom**: `min_bedrooms` (array), `max_bedrooms` (array), `min_bathrooms` (array), `max_bathrooms` (array)\n- **Year Filters**: `handover_year` (number or array), `handover_year_range: {min, max}`\n- **Array Filters**: `amenities` (array), `unit_types` (array)\n- **Location**: `locality`, `latitude`, `longitude`, `radius` (km)\n- **Text Search**: `search` (searches in title, description, project_name, address)\n- **Date Filters**: `created_after`, `created_before`, `updated_after`, `updated_before` (ISO date strings)\n- **Sorting**: `sort_by` (created_at, updated_at, min_price, max_price, handover_year, views), `sort_order` (asc, desc)\n- **Priority Sorting**: `prioritize_brokerage_id`, `priority_company_ids` (array)\n- **Relations**: `include_developer`, `include_brokerage`, `include_floor_plans`\n- **Pagination**: `page`, `limit` (max 100)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects (By Developer)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"developer_id\": \"developer-uuid-here\",\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							]
+						},
+						"description": "Get all projects filtered by developer ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects (By Brokerage)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"brokerage_id\": \"brokerage-uuid-here\",\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							]
+						},
+						"description": "Get all projects filtered by brokerage ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects (Price Range)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"price_range\": {\n    \"min\": 500000,\n    \"max\": 2000000\n  },\n  \"city\": \"Dubai\",\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							]
+						},
+						"description": "Get projects within a specific price range"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects (Location Based)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": 25.2048,\n  \"longitude\": 55.2708,\n  \"radius\": 10,\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							]
+						},
+						"description": "Get projects within a radius (in km) from a specific location (latitude, longitude)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Projects (Priority Sorting)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"prioritize_brokerage_id\": \"brokerage-uuid-here\",\n  \"priority_company_ids\": [\"company-uuid-1\", \"company-uuid-2\"],\n  \"sort_by\": \"created_at\",\n  \"sort_order\": \"desc\",\n  \"page\": 1,\n  \"limit\": 20\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/projects",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects"
+							]
+						},
+						"description": "Get projects with priority sorting. Projects matching the brokerage_id or company_ids will appear first."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Project By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/projects/:id?include=true",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"projects",
+								":id"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "true",
+									"description": "Include relations (Developer, Brokerage, FloorPlan)"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "project-uuid-here"
+								}
+							]
+						},
+						"description": "Get a single project by ID. Includes ROI data (firstYear, thirdYear, fifthYear) based on locality and property type.\n\n**Query Parameters:**\n- `include` (boolean): Include relations (Developer, Brokerage, FloorPlan). Default: true"
+					},
+					"response": []
+				}
+			],
+			"description": "Project management endpoints with comprehensive filtering capabilities"
+		},
+		{
+			"name": "Companies",
+			"item": [
+				{
+					"name": "Create Company",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Example Developer Company\",\n  \"name_ar\": \"شركة المطور المثال\",\n  \"description\": \"A leading real estate developer in Dubai\",\n  \"logo\": \"https://example.com/logo.png\",\n  \"type\": \"Developer\",\n  \"website\": \"https://example.com\",\n  \"domain_name\": \"example.com\",\n  \"email\": \"contact@example.com\",\n  \"phone\": \"+971-4-123-4567\",\n  \"address\": \"Dubai, UAE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/companies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							]
+						},
+						"description": "Create a new company. Automatically creates associated Developer or Brokerage based on type.\n\n**Required Fields:**\n- `name` (string): Company name\n- `type` (enum): \"Developer\", \"Brokerage\", or \"Other\"\n\n**Optional Fields:**\n- `name_ar` (string): Arabic name\n- `description` (string): Company description\n- `logo` (string): Logo URL\n- `website` (string): Website URL\n- `domain_name` (string): Unique domain name\n- `email` (string): Contact email\n- `phone` (string): Contact phone\n- `address` (string): Company address\n\n**Response includes:**\n- `developer_id` (if type is Developer)\n- `brokerage_id` (if type is Brokerage)"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Company (Brokerage)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Example Brokerage Company\",\n  \"description\": \"A leading real estate brokerage in Dubai\",\n  \"logo\": \"https://example.com/logo.png\",\n  \"type\": \"Brokerage\",\n  \"website\": \"https://example.com\",\n  \"domain_name\": \"brokerage-example.com\",\n  \"email\": \"contact@brokerage-example.com\",\n  \"phone\": \"+971-4-123-4567\",\n  \"address\": \"Dubai, UAE\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/companies",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							]
+						},
+						"description": "Create a new brokerage company"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Companies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/companies?name=example&type=Developer&developer_id=dev-uuid&brokerage_id=brokerage-uuid&page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "example",
+									"description": "Search by name (case-insensitive partial match)",
+									"disabled": true
+								},
+								{
+									"key": "type",
+									"value": "Developer",
+									"description": "Filter by type: Developer, Brokerage, Other",
+									"disabled": true
+								},
+								{
+									"key": "developer_id",
+									"value": "dev-uuid",
+									"description": "Filter by developer ID",
+									"disabled": true
+								},
+								{
+									"key": "brokerage_id",
+									"value": "brokerage-uuid",
+									"description": "Filter by brokerage ID",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (default: 1)"
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Items per page (default: 20, max: 100)"
+								}
+							]
+						},
+						"description": "Get all companies with optional filters and pagination.\n\n**Query Parameters:**\n- `name` (string): Search by name (case-insensitive partial match)\n- `type` (enum): Filter by type (Developer, Brokerage, Other)\n- `developer_id` (string): Filter by developer ID\n- `brokerage_id` (string): Filter by brokerage ID\n- `page` (number): Page number (default: 1)\n- `limit` (number): Items per page (default: 20, max: 100)\n\n**Response includes:**\n- `total_projects`: Total number of projects for the company"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Companies (Search by Name)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/companies?name=dubai&page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "dubai"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Search companies by name"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Companies (Filter by Type)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/companies?type=Developer&page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "Developer"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Get all companies filtered by type"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Company Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/companies/stats",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								"stats"
+							]
+						},
+						"description": "Get statistics for all companies with developer/brokerage affiliations and project counts.\n\n**Response includes:**\n- `company_id`: Company ID\n- `company_name`: Company name\n- `developer_id`: Developer ID (if applicable)\n- `developer_name`: Developer name (if applicable)\n- `brokerage_id`: Brokerage ID (if applicable)\n- `brokerage_name`: Brokerage name (if applicable)\n- `project_count`: Total number of projects\n\nResults are sorted by project_count in descending order."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Company By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/companies/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"companies",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "company-uuid-here"
+								}
+							]
+						},
+						"description": "Get company details by ID.\n\n**Response includes:**\n- Company details\n- `Developer` relation with Projects (if applicable)\n- `Brokerage` relation with Projects (if applicable)"
+					},
+					"response": []
+				}
+			],
+			"description": "Company management endpoints for Developers and Brokerages"
+		},
+		{
+			"name": "Developers",
+			"item": [
+				{
+					"name": "Get All Developers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/developers?page=1&limit=20&min_projects=5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"developers"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number (default: 1)"
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Items per page (default: 20, max: 100)"
+								},
+								{
+									"key": "min_projects",
+									"value": "5",
+									"description": "Minimum number of projects (optional)",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Get all developers with pagination. Results are sorted by project count (descending - most projects first).\n\n**Query Parameters:**\n- `page` (number): Page number (default: 1)\n- `limit` (number): Items per page (default: 20, max: 100)\n- `min_projects` (number): Filter developers with minimum number of projects (optional)\n\n**Response includes:**\n- Developer details with Company information\n- `project_count`: Total number of projects for the developer"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Developers (With Min Projects)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/developers?min_projects=10&page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"developers"
+							],
+							"query": [
+								{
+									"key": "min_projects",
+									"value": "10"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "Get developers with at least 10 projects"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Developer By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/developers/:id?page=1&limit=20",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"developers",
+								":id"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number for projects (default: 1)"
+								},
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Items per page for projects (default: 20, max: 100)"
+								}
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "developer-uuid-here"
+								}
+							]
+						},
+						"description": "Get developer details by ID with paginated projects.\n\n**Query Parameters:**\n- `page` (number): Page number for projects pagination (default: 1)\n- `limit` (number): Items per page for projects (default: 20, max: 100)\n\n**Response includes:**\n- Developer details with Company information\n- `projects`: Paginated list of projects with:\n  - `data`: Array of projects\n  - `pagination`: Pagination metadata\n- Each project includes Brokerage and FloorPlan relations"
+					},
+					"response": []
+				}
+			],
+			"description": "Developer management endpoints"
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
+

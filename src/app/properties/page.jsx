@@ -8,7 +8,9 @@ import PropertyCard from '@/components/PropertyCard';
 import ContactDropdown from '@/components/ContactDropdown';
 import AreaDetailsModal from '@/components/AreaDetailsModal';
 import FilterModal from '@/components/FilterModal';
+import Hotspots from '@/components/Hotspots';
 import { getPaginatedProperties } from '@/lib/properties';
+import { allAreas } from './areaData';
 
 function PropertiesContent() {
     const searchParams = useSearchParams();
@@ -25,6 +27,10 @@ function PropertiesContent() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [developers, setDevelopers] = useState([]);
+    const [isLoadingDevelopers, setIsLoadingDevelopers] = useState(true);
+    const [totalProjects, setTotalProjects] = useState(0);
+    const [visibleAreasCount, setVisibleAreasCount] = useState(6);
     const propertiesPerPage = 9;
     const debounceTimerRef = useRef(null);
 
@@ -94,6 +100,47 @@ function PropertiesContent() {
             }
         };
     }, [searchQuery]);
+
+    // Fetch developers from API
+    useEffect(() => {
+        const fetchDevelopers = async () => {
+            setIsLoadingDevelopers(true);
+            try {
+                const res = await fetch('/api/developers?page=1&limit=20&min_projects=1');
+                if (!res.ok) {
+                    throw new Error(`Failed to fetch developers: ${res.status}`);
+                }
+                const data = await res.json();
+                
+                if (data.success !== false && data.data) {
+                    // Map API response to developer format
+                    const developersList = data.data.map((dev) => ({
+                        id: dev.id,
+                        name: dev.company?.name || dev.name || '',
+                        projectCount: dev.project_count || 0,
+                        developerId: dev.id,
+                    })).filter((dev) => dev.name && dev.projectCount > 0)
+                      .sort((a, b) => b.projectCount - a.projectCount)
+                      .slice(0, 6); // Get top 6 developers
+                    
+                    setDevelopers(developersList);
+                    
+                    // Calculate total projects
+                    const total = developersList.reduce((sum, dev) => sum + dev.projectCount, 0);
+                    setTotalProjects(total);
+                } else {
+                    setDevelopers([]);
+                }
+            } catch (err) {
+                console.error('Error fetching developers:', err);
+                setDevelopers([]);
+            } finally {
+                setIsLoadingDevelopers(false);
+            }
+        };
+
+        fetchDevelopers();
+    }, []);
 
     // Read city or locality from URL params on mount
     useEffect(() => {
@@ -460,103 +507,20 @@ function PropertiesContent() {
                         </p>
                     </div>
 
-                    {/* Map Image Section */}
-                    <div className="relative w-full mb-16 rounded-[3rem] overflow-hidden shadow-lg border border-gray-100">
-                        <img
-                            src="/assets/dubai-map.png"
-                            className="w-full h-auto object-cover"
-                            alt="Dubai Map"
+                    {/* Interactive Map Section */}
+                    <div className="mb-16">
+                        <Hotspots 
+                            title=""
+                            showTitle={false}
+                            showFilters={true}
+                            filterOptions={["All", "Villa", "2 BHK", "3 BHK", "1 BHK"]}
+                            className="px-0 py-0 rounded-[3rem] overflow-hidden shadow-lg border border-gray-100"
                         />
                     </div>
 
                     {/* Area Cards Grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {[
-                            {
-                                name: "Dubai Marina",
-                                roi: "7-8% ROI",
-                                price: "AED 1.2M",
-                                img: "/assets/dubai-marina.png",
-                                desc: "A high-rise waterfront community known for luxury apartments, walkable promenades, dining, and strong...",
-                                features: ["Waterfront", "Luxury", "High ROI"],
-                                details: {
-                                    overview: "Dubai Marina is a waterfront community developed by Emaar Properties, extending over 6.4 million square feet along a 3.5 km shoreline. It's designed to accommodate around 120,000 residents in high-rise towers.",
-                                    lifestyle: "Offering a vibrant urban lifestyle, Dubai Marina attracts professionals and expatriates seeking luxury living with easy access to dining, entertainment, and leisure activities.",
-                                    facilities: "The area boasts a 7 km Marina Walk lined with cafes and shops, luxury hotels, beaches, yacht clubs, and proximity to business hubs like Dubai Internet City.",
-                                    investment: "As one of Dubai's most popular residential areas, Dubai Marina properties enjoy high rental yields and strong resale value, making it a prime choice for investors."
-                                }
-                            },
-                            {
-                                name: "Downtown Dubai",
-                                roi: "5-6% ROI",
-                                price: "AED 2.5M",
-                                img: "https://images.unsplash.com/photo-1496568816309-51d7c20e3b21?auto=format&fit=crop&q=80&w=800",
-                                desc: "Home to Burj Khalifa and Dubai Mall, the heart of modern Dubai offering premium urban living.",
-                                features: ["Iconic", "Premium", "Central"],
-                                details: {
-                                    overview: "Downtown Dubai is a flagship development by Emaar Properties, encompassing 2 square kilometres. It is home to iconic landmarks such as the Burj Khalifa, The Dubai Mall, and The Dubai Fountain. As of 2017, the population was over 13,000 residents.",
-                                    lifestyle: "The area offers a vibrant urban lifestyle with luxury residences, world-class shopping, dining, and entertainment options, attracting both residents and tourists.",
-                                    facilities: "Downtown Dubai features high-rise residential towers, hotels, retail outlets, cultural attractions, and extensive pedestrian zones, including the Mohammed Bin Rashid Boulevard.",
-                                    investment: "Due to its central location and iconic developments, Downtown Dubai properties command high demand and offer strong rental yields and capital appreciation."
-                                }
-                            },
-                            {
-                                name: "Palm Jumeirah",
-                                roi: "4-5% ROI",
-                                price: "AED 3.5M",
-                                img: "/assets/palm-jumeirah.png",
-                                desc: "The iconic palm-shaped island featuring exclusive beachfront villas and apartments with stunning views.",
-                                features: ["Island", "Ultra Luxury", "Beachfront"],
-                                details: {
-                                    overview: "Palm Jumeirah is a world-renowned man-made island shaped like a palm tree, extending into the Arabian Gulf. Covering an area of 560 hectares, it's divided into the Trunk, Fronds, and Crescent, housing luxury residences, hotels, and retail outlets.",
-                                    lifestyle: "The island epitomizes luxury living, attracting affluent residents and tourists. With its beachfront properties, upscale dining, and entertainment options, Palm Jumeirah offers a vibrant and opulent lifestyle.",
-                                    facilities: "Residents enjoy access to private beaches, high-end restaurants, shopping malls like Nakheel Mall, fitness canters, and leisure attractions such as Aqua venture Waterpark and The Lost Chambers Aquarium.",
-                                    investment: "Palm Jumeirah properties are among the most sought-after in Dubai, offering high rental yields and capital appreciation. The area's iconic status and continuous development make it a prime investment location."
-                                }
-                            },
-                            {
-                                name: "Business Bay",
-                                roi: "6-7% ROI",
-                                price: "AED 900K",
-                                img: "https://images.unsplash.com/photo-1580674684081-7617fbf3d745?auto=format&fit=crop&q=80&w=800",
-                                desc: "A dynamic business district along Dubai Canal with modern offices and residential towers.",
-                                features: ["Business Hub", "Canal Views", "Investment"],
-                                details: {
-                                    overview: "Business Bay is a central business district in Dubai, spanning approximately 64 million square feet. It is strategically located near Downtown Dubai and along the Dubai Canal. The area is envisioned to accommodate over 191,000 residents upon full development.",
-                                    lifestyle: "Business Bay offers a cosmopolitan lifestyle, attracting professionals and entrepreneurs. The district combines residential, commercial, and leisure spaces, fostering a dynamic urban environment.",
-                                    facilities: "The area boasts high-rise residential and commercial towers, hotels, restaurants, retail outlets, and access to the Dubai Metro. The Dubai Canal adds waterfront promenades and recreational spaces.",
-                                    investment: "Business Bay presents strong investment opportunities due to its prime location and mixed-use developments. The ongoing growth and infrastructure enhancements contribute to its appeal for investors."
-                                }
-                            },
-                            {
-                                name: "Dubai Hills Estate",
-                                roi: "5-6% ROI",
-                                price: "AED 1.5M",
-                                img: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&q=80&w=800",
-                                desc: "A master-planned community with villas, apartments, and the Dubai Hills Mall surrounded by lush greenery.",
-                                features: ["Family-Friendly", "Golf Course", "Green"],
-                                details: {
-                                    overview: "Dubai Hills Estate is a master-planned community by Emaar Properties, covering over 11 million square meters (2,700 acres). It's part of Mohammed Bin Rashid City and is projected to house approximately 150,000 residents across 20 sub-communities.",
-                                    lifestyle: "Known as the \"Green Heart of Dubai,\" the estate offers a blend of luxury and sustainability, attracting families and individuals seeking a serene environment with proximity to urban centers.",
-                                    facilities: "The community features an 18-hole championship golf course, Dubai Hills Park, Dubai Hills Mall, schools, hospitals, and extensive walking and cycling tracks.",
-                                    investment: "Dubai Hills Estate's strategic location and upscale offerings make it a sought-after investment destination, with properties exhibiting strong demand and potential for significant returns."
-                                }
-                            },
-                            {
-                                name: "Dubai Creek Harbour",
-                                roi: "6-7% ROI",
-                                price: "AED 1.1M",
-                                img: "/assets/dubai-creek-harbour.png",
-                                desc: "A waterfront development featuring the future Dubai Creek Tower, offering modern urban living.",
-                                features: ["Emerging", "Waterfront", "Future Icon"],
-                                details: {
-                                    overview: "Dubai Creek Harbour is a waterfront development spanning approximately 6 square kilometers. It is designed to accommodate over 200,000 residents upon completion.",
-                                    lifestyle: "The community offers a blend of urban living and natural surroundings, with views of the Dubai Creek and proximity to the Ras Al Khor Wildlife Sanctuary.",
-                                    facilities: "Dubai Creek Harbour includes residential towers, retail spaces, parks, cultural attractions, and a marina. The planned Dubai Creek Tower aims to be a new architectural landmark.",
-                                    investment: "As an emerging district with significant developments, Dubai Creek Harbour presents opportunities for investors seeking growth potential in a waterfront setting."
-                                }
-                            }
-                        ].map((area, i) => (
+                        {allAreas.slice(0, visibleAreasCount).map((area, i) => (
                             <div key={i} className="group rounded-2xl overflow-hidden border border-gray-100 hover:shadow-xl transition-all duration-300 bg-white">
                                 <div className="h-64 relative overflow-hidden">
                                     <img src={area.img} alt={area.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -597,6 +561,18 @@ function PropertiesContent() {
                             </div>
                         ))}
                     </div>
+
+                    {/* Load More Button */}
+                    {visibleAreasCount < allAreas.length && (
+                        <div className="flex justify-center mt-12">
+                            <button
+                                onClick={() => setVisibleAreasCount(prev => Math.min(prev + 6, allAreas.length))}
+                                className="px-8 py-3 bg-secondary text-white rounded-full font-bold uppercase text-sm hover:bg-secondary/90 transition-all shadow-lg hover:shadow-xl flex items-center gap-2"
+                            >
+                                Load More Areas <ChevronDown size={16} />
+                            </button>
+                        </div>
+                    )}
                 </div>
                 <AreaDetailsModal
                     isOpen={!!selectedArea}
@@ -640,26 +616,61 @@ function PropertiesContent() {
                             <span className="font-bold">All Developers</span>
                             <Check size={16} className="text-[#C5A365]" />
                         </div>
-                        {['EMAAR', 'DAMAC', 'SOBHA', 'MERAAS', 'AZIZI', 'NAKHEEL'].map((dev, i) => (
-                            <div 
-                                key={i} 
-                                onClick={() => {
-                                    setFilters({ developer: dev });
-                                    router.push(`/properties?developer=${encodeURIComponent(dev)}`);
-                                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                                }}
-                                className="bg-white rounded-xl p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all cursor-pointer group h-24"
-                            >
-                                <span className="font-bold text-gray-700 group-hover:text-secondary mb-1">{dev}</span>
-                                <span className="text-[10px] text-gray-400">{20 + i * 5} projects</span>
-                            </div>
-                        ))}
+                        {isLoadingDevelopers ? (
+                            // Loading skeleton
+                            Array.from({ length: 6 }).map((_, i) => (
+                                <div 
+                                    key={i}
+                                    className="bg-white rounded-xl p-4 flex flex-col items-center justify-center border border-gray-100 h-24 animate-pulse"
+                                >
+                                    <div className="h-4 w-20 bg-gray-200 rounded mb-2"></div>
+                                    <div className="h-3 w-16 bg-gray-200 rounded"></div>
+                                </div>
+                            ))
+                        ) : developers.length > 0 ? (
+                            developers.map((dev) => (
+                                <div 
+                                    key={dev.id || dev.name} 
+                                    onClick={() => {
+                                        setFilters({ developer: dev.name });
+                                        router.push(`/properties?developer=${encodeURIComponent(dev.name)}`);
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    className="bg-white rounded-xl p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all cursor-pointer group h-24"
+                                >
+                                    <span className="font-bold text-gray-700 group-hover:text-secondary mb-1 text-center text-sm">
+                                        {dev.name.toUpperCase()}
+                                    </span>
+                                    <span className="text-[10px] text-gray-400">
+                                        {dev.projectCount} {dev.projectCount === 1 ? 'project' : 'projects'}
+                                    </span>
+                                </div>
+                            ))
+                        ) : (
+                            // Fallback to hardcoded developers if API fails
+                            ['EMAAR', 'DAMAC', 'SOBHA', 'MERAAS', 'AZIZI', 'NAKHEEL'].map((dev, i) => (
+                                <div 
+                                    key={i} 
+                                    onClick={() => {
+                                        setFilters({ developer: dev });
+                                        router.push(`/properties?developer=${encodeURIComponent(dev)}`);
+                                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    }}
+                                    className="bg-white rounded-xl p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all cursor-pointer group h-24"
+                                >
+                                    <span className="font-bold text-gray-700 group-hover:text-secondary mb-1">{dev}</span>
+                                    <span className="text-[10px] text-gray-400">Loading...</span>
+                                </div>
+                            ))
+                        )}
                     </div>
 
                     {/* Stats */}
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 max-w-5xl mx-auto">
                         <div className="bg-white p-6 rounded-2xl shadow-sm">
-                            <h4 className="text-3xl font-bold text-[#C5A365] mb-1">200+</h4>
+                            <h4 className="text-3xl font-bold text-[#C5A365] mb-1">
+                                {isLoadingDevelopers ? '...' : totalProjects > 0 ? `${totalProjects}+` : '200+'}
+                            </h4>
                             <p className="text-xs text-gray-400 uppercase tracking-wider">Total Projects</p>
                         </div>
                         <div className="bg-white p-6 rounded-2xl shadow-sm">

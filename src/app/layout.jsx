@@ -6,6 +6,9 @@ import ScrollButton from '@/components/ScrollButton'
 export const metadata = {
   title: 'Credence Realtor - Dubai Real Estate',
   description: 'Find the right property in Dubai - Backed by Insight, Not Guesswork',
+  icons: {
+    icon: '/logo.png',
+  },
 }
 
 export default function RootLayout({ children }) {

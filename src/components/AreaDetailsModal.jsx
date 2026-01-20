@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ArrowRight, BedDouble, Bath, Square, MapPin, Check } from 'lucide-react';
 import Link from 'next/link';
+import { getPaginatedProperties, formatPrice } from '@/lib/properties';
 
 const AreaDetailsModal = ({ isOpen, onClose, area }) => {
-    if (!isOpen || !area) return null;
+    const [areaProperties, setAreaProperties] = useState([]);
+    const [isLoadingProperties, setIsLoadingProperties] = useState(false);
 
-    // Dummy properties for the area (to be replaced by backend data later)
-    const areaProperties = [
-        {
-            id: 1,
-            title: `Luxury Apartment in ${area.name}`,
-            price: area.price,
-            beds: 2,
-            baths: 2,
-            sqft: 1450,
-            image: area.img, // Using area image as placeholder
-            type: "Ready"
-        },
-        {
-            id: 2,
-            title: `${area.name} Skyline View`,
-            price: "AED 3,200,000",
-            beds: 3,
-            baths: 3,
-            sqft: 1900,
-            image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=800",
-            type: "Off-Plan"
+    useEffect(() => {
+        if (isOpen && area) {
+            const loadAreaProperties = async () => {
+                setIsLoadingProperties(true);
+                try {
+                    // Fetch properties for this area using locality filter
+                    const result = await getPaginatedProperties(
+                        { locality: area.name },
+                        1,
+                        6 // Limit to 6 properties for the modal
+                    );
+                    setAreaProperties(result.properties || []);
+                } catch (error) {
+                    console.error('Error loading area properties:', error);
+                    setAreaProperties([]);
+                } finally {
+                    setIsLoadingProperties(false);
+                }
+            };
+
+            loadAreaProperties();
+        } else {
+            setAreaProperties([]);
         }
-    ];
+    }, [isOpen, area]);
+
+    if (!isOpen || !area) return null;
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4">
@@ -128,38 +134,76 @@ const AreaDetailsModal = ({ isOpen, onClose, area }) => {
                                     </Link>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                                    {areaProperties.map(property => (
-                                        <div key={property.id} className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300">
-                                            <div className="relative h-40 md:h-48 overflow-hidden">
-                                                <img
-                                                    src={property.image}
-                                                    alt={property.title}
-                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                                />
-                                                <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-black/60 text-white text-[10px] uppercase font-bold px-2 py-0.5 md:px-3 md:py-1 rounded backdrop-blur-sm">
-                                                    {property.type}
-                                                </span>
-                                            </div>
-                                            <div className="p-4 md:p-5">
-                                                <h4 className="font-bold text-secondary mb-1 truncate text-sm md:text-base">{property.title}</h4>
-                                                <p className="text-[#C5A365] font-bold text-base md:text-lg mb-3 md:mb-4">{property.price}</p>
-
-                                                <div className="flex items-center justify-between text-[10px] md:text-xs text-gray-500 border-t border-gray-50 pt-3">
-                                                    <div className="flex items-center gap-1">
-                                                        <BedDouble size={14} /> {property.beds} Beds
-                                                    </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <Bath size={14} /> {property.baths} Baths
-                                                    </div>
-                                                    <div className="flex items-center gap-1">
-                                                        <Square size={14} /> {property.sqft} sqft
-                                                    </div>
+                                {isLoadingProperties ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                        {[1, 2].map((i) => (
+                                            <div key={i} className="bg-white rounded-xl border border-gray-100 overflow-hidden animate-pulse">
+                                                <div className="h-40 md:h-48 bg-gray-200"></div>
+                                                <div className="p-4 md:p-5">
+                                                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                                                    <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
+                                        ))}
+                                    </div>
+                                ) : areaProperties.length > 0 ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                        {areaProperties.map(property => (
+                                            <Link
+                                                key={property.id}
+                                                href={`/properties/${property.id}`}
+                                                onClick={onClose}
+                                                className="group bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300"
+                                            >
+                                                <div className="relative h-40 md:h-48 overflow-hidden">
+                                                    <img
+                                                        src={property.mainImage || "/assets/villa.png"}
+                                                        alt={property.title}
+                                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                    />
+                                                    <span className="absolute top-2 left-2 md:top-3 md:left-3 bg-black/60 text-white text-[10px] uppercase font-bold px-2 py-0.5 md:px-3 md:py-1 rounded backdrop-blur-sm">
+                                                        {property.type || 'Property'}
+                                                    </span>
+                                                </div>
+                                                <div className="p-4 md:p-5">
+                                                    <h4 className="font-bold text-secondary mb-1 truncate text-sm md:text-base">{property.title}</h4>
+                                                    <p className="text-[#C5A365] font-bold text-base md:text-lg mb-3 md:mb-4">
+                                                        AED {formatPrice(property.price)}
+                                                    </p>
+
+                                                    <div className="flex items-center justify-between text-[10px] md:text-xs text-gray-500 border-t border-gray-50 pt-3">
+                                                        {property.bedrooms && (
+                                                            <div className="flex items-center gap-1">
+                                                                <BedDouble size={14} /> {property.bedrooms} {property.bedrooms === 1 ? 'Bed' : 'Beds'}
+                                                            </div>
+                                                        )}
+                                                        {property.bathrooms && (
+                                                            <div className="flex items-center gap-1">
+                                                                <Bath size={14} /> {property.bathrooms} {property.bathrooms === 1 ? 'Bath' : 'Baths'}
+                                                            </div>
+                                                        )}
+                                                        {property.area && (
+                                                            <div className="flex items-center gap-1">
+                                                                <Square size={14} /> {property.area} sqft
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className="text-center py-8 text-gray-500">
+                                        <p>No properties available in {area.name} at the moment.</p>
+                                        <Link
+                                            href="/properties"
+                                            onClick={onClose}
+                                            className="text-[#C5A365] font-bold text-sm mt-2 inline-block hover:underline"
+                                        >
+                                            Browse all properties
+                                        </Link>
+                                    </div>
+                                )}
                             </div>
 
                         </div>

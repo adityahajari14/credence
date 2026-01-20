@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
     Home,
     Instagram,
@@ -13,6 +14,7 @@ import {
     ArrowRight,
     MessageCircle
 } from 'lucide-react';
+import { scrollReveal, staggerContainer, staggerItem } from '@/utils/animations';
 
 const Footer = () => {
 
@@ -44,7 +46,10 @@ const Footer = () => {
         <footer className="font-sans">
 
             {/* 1. CTA Banner (Top Section) */}
-            <section className="py-24 bg-black relative overflow-hidden">
+            <motion.section 
+                className="py-24 bg-black relative overflow-hidden"
+                {...scrollReveal}
+            >
                 <div className="absolute inset-0">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 blur-[120px] rounded-full" />
                 </div>
@@ -72,20 +77,38 @@ const Footer = () => {
                         </a>
                     </div>
 
-                    <a href="tel:+97145917373" className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors">
+                    <a 
+                        href="tel:+97145917373" 
+                        className="inline-flex items-center gap-2 text-gray-400 hover:text-primary transition-colors"
+                    >
                         <Phone size={18} />
                         <span>+971 4 591 7373</span>
                     </a>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 2. Main Footer (Bottom Section) */}
-            <div className="bg-black py-16 text-white border-t border-white/5">
+            <motion.div 
+                className="bg-black py-16 text-white border-t border-white/5"
+                initial={scrollReveal.initial}
+                whileInView={scrollReveal.whileInView}
+                viewport={scrollReveal.viewport}
+                transition={scrollReveal.transition}
+            >
                 <div className="container mx-auto px-4 md:px-6 lg:pr-20">
-                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 lg:gap-2">
+                    <motion.div 
+                        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 lg:gap-2"
+                        initial="initial"
+                        whileInView="animate"
+                        viewport={{ once: true, margin: "-50px" }}
+                        variants={staggerContainer}
+                    >
 
                         {/* Column 1: Company Info & Logo */}
-                        <div className="col-span-2 lg:col-span-1">
+                        <motion.div 
+                            className="col-span-2 lg:col-span-1"
+                            variants={staggerItem}
+                        >
                             <div className="flex items-center gap-2 mb-6 text-white">
                                 <img src="/assets/Company_Logo_1-removebg-preview.png" alt="Credence Realtor" className="w-[180px] h-auto object-contain" />
                             </div>
@@ -95,15 +118,19 @@ const Footer = () => {
                             </p>
                             <div className="flex gap-4">
                                 {[Instagram, Linkedin, Facebook].map((Icon, i) => (
-                                    <a key={i} href="#" className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white hover:bg-primary hover:text-white transition-colors duration-300">
+                                    <a 
+                                        key={i} 
+                                        href="#" 
+                                        className="w-10 h-10 bg-[#1a1a1a] rounded-full flex items-center justify-center text-white hover:bg-primary hover:text-white transition-colors duration-300"
+                                    >
                                         <Icon size={18} />
                                     </a>
                                 ))}
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Column 2: Properties */}
-                        <div>
+                        <motion.div variants={staggerItem}>
                             <h3 className="font-semibold text-white mb-6">Properties</h3>
                             <ul className="space-y-3">
                                 {[
@@ -122,7 +149,7 @@ const Footer = () => {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </motion.div>
 
                         {/* Column 3: Developers */}
                         <div>
@@ -255,9 +282,9 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                    </div>
+                    </motion.div>
                 </div>
-            </div>
+            </motion.div>
 
             {/* 3. Bottom Bar */}
             <div className="bg-[#050505] border-t border-white/5 py-8">

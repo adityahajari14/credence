@@ -1,9 +1,11 @@
 'use client'
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Check, Play, Phone, MessageCircle, FileText, ChevronRight, User, TrendingUp, Scale, Home, ChevronDown, CheckCircle2, ChevronUp, Award, Bitcoin } from 'lucide-react';
 import Link from 'next/link';
 import ContactDropdown from '@/components/ContactDropdown';
+import { fadeInUp, scrollReveal, staggerContainer, staggerItem } from '@/utils/animations';
 
 const ServiceBlock = ({ iconLabel, label, title, titleHighlight, desc, primaryBtn, secondaryBtn, rightHeading, points, guidelines }) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -107,20 +109,35 @@ const Services = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <div className="flex items-center justify-center gap-4 mb-6">
+                    <motion.div 
+                        className="flex items-center justify-center gap-4 mb-6"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <div className="h-[1px] w-8 bg-gray-400"></div>
                         <span className="text-gray-300 text-xs font-bold tracking-[0.3em] uppercase">Est. 2021</span>
                         <div className="h-[1px] w-8 bg-gray-400"></div>
-                    </div>
+                    </motion.div>
 
-                    <h1 className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight">
+                    <motion.h1 
+                        className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
                         End-to-End Real Estate <br />
                         <span className="text-[#C5A365]">Support in Dubai</span>
-                    </h1>
+                    </motion.h1>
 
-                    <p className="text-gray-300 max-w-3xl mx-auto mb-10 text-lg leading-relaxed font-light">
+                    <motion.p 
+                        className="text-gray-300 max-w-3xl mx-auto mb-10 text-lg leading-relaxed font-light"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         At Credence Realtor, we offer comprehensive real estate services designed to support you at every stage — whether buying, selling, leasing, financing, or investing through Golden Visa or Crypto payments.
-                    </p>
+                    </motion.p>
 
                     <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4">
                         <Link href="/properties" className="bg-white text-black px-8 py-4 rounded-full font-bold text-sm hover:bg-[#C5A365] hover:text-white transition-all flex items-center gap-2">
@@ -135,10 +152,16 @@ const Services = () => {
             </section>
 
             {/* 2. Free Consultation Intro */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-                        <div className="flex-1">
+                        <motion.div 
+                            className="flex-1"
+                            {...fadeInUp}
+                        >
                             <span className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Free Consultation</span>
                             <h2 className="text-5xl font-display text-secondary mb-6 leading-[1.15]">
                                 Free Dubai Property <br />
@@ -156,40 +179,53 @@ const Services = () => {
                                     <MessageCircle size={18} /> WhatsApp Now
                                 </a>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="flex-1 w-full">
+                        <motion.div 
+                            className="flex-1 w-full"
+                            {...fadeInUp}
+                        >
                             <div className="bg-white p-10 md:p-14 border border-gray-100 shadow-[0_20px_40px_rgba(0,0,0,0.03)]">
                                 <h4 className="font-display text-xl mb-6 pb-6 border-b border-gray-100">What You Get</h4>
-                                <ul className="space-y-6">
+                                <motion.ul 
+                                    className="space-y-6"
+                                    {...staggerContainer}
+                                >
                                     {[
                                         { icon: User, text: "One-on-one expert consultation" },
                                         { icon: TrendingUp, text: "Market insights & investment guidance" },
                                         { icon: Scale, text: "Legal & ownership clarity" },
                                         { icon: Home, text: "Tailored property recommendations" }
                                     ].map((item, i) => (
-                                        <li key={i} className="flex items-center gap-5">
+                                        <motion.li 
+                                            key={i} 
+                                            className="flex items-center gap-5"
+                                            variants={staggerItem}
+                                        >
                                             <div className="w-10 h-10 bg-[#F9F7F2] flex items-center justify-center text-[#C5A365] rounded">
                                                 <item.icon size={18} />
                                             </div>
                                             <span className="text-gray-700 font-medium">{item.text}</span>
-                                        </li>
+                                        </motion.li>
                                     ))}
-                                </ul>
+                                </motion.ul>
                                 <div className="mt-10 flex items-center gap-2 text-xs text-[#C5A365] font-medium">
                                     <div className="w-1.5 h-1.5 rounded-full bg-[#C5A365]" />
                                     Start your Dubai property journey with confidence
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
 
 
             {/* 4. Services List */}
-            <section className="bg-white overflow-hidden">
+            <motion.section 
+                className="bg-white overflow-hidden"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
 
                     <ServiceBlock
@@ -343,7 +379,7 @@ const Services = () => {
                     />
 
                 </div>
-            </section>
+            </motion.section>
 
 
 

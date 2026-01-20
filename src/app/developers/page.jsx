@@ -1,4 +1,7 @@
+'use client'
+
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
     ShieldCheck,
     Clock,
@@ -8,6 +11,8 @@ import {
     MessageCircle
 } from 'lucide-react';
 import Link from 'next/link';
+import { fadeInUp, scrollReveal, staggerContainer, staggerItem } from '@/utils/animations';
+import Hotspots from '@/components/Hotspots';
 
 const Developers = () => {
 
@@ -47,32 +52,6 @@ const Developers = () => {
         { name: "DIAMOND DEVELOPERS", image: "/assets/Daimond.png", desc: "A leader in sustainable urban developments and environmentally responsible communities.", largeLogo: true }
     ];
 
-
-    const DeveloperSection = ({ title, subtitle, data }) => (
-        <div className="mb-24">
-            <div className="mb-10 pl-2">
-                <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-2 block">Featured</span>
-                <h2 className="text-3xl md:text-5xl font-display text-secondary mb-4">{title}</h2>
-                <p className="text-gray-500 max-w-3xl leading-relaxed">{subtitle}</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {data.map((dev, idx) => (
-                    <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all group flex flex-col h-full w-full max-w-md mx-auto">
-                        <div className={`h-32 flex items-center justify-center mb-6 border-b border-gray-50 ${dev.largeLogo ? 'p-0.5' : 'p-3'}`}>
-                            <img src={dev.image} alt={dev.name} className="max-h-full max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
-                        </div>
-                        <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">
-                            {dev.desc}
-                        </p>
-                        <button className="flex items-center gap-2 text-[#C5A365] text-sm font-bold uppercase tracking-wider group-hover:gap-3 transition-all">
-                            View Projects <ArrowRight size={16} />
-                        </button>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-
     return (
         <div className="font-sans">
             {/* 1. Hero Section */}
@@ -86,13 +65,30 @@ const Developers = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 relative z-10 text-center pt-32">
-                    <span className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em] mb-4 block animate-in fade-in slide-in-from-bottom-4 duration-700">Credence Real Estate Advisory</span>
-                    <h1 className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight animate-in fade-in slide-in-from-bottom-5 duration-700 delay-100">
+                    <motion.span 
+                        className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em] mb-4 block"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        Credence Real Estate Advisory
+                    </motion.span>
+                    <motion.h1 
+                        className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
                         Top Real Estate<br /> <span className="text-[#C5A365]">Developers in Dubai</span>
-                    </h1>
-                    <p className="text-gray-200 text-lg max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-6 duration-700 delay-200 mb-10">
+                    </motion.h1>
+                    <motion.p 
+                        className="text-gray-200 text-lg max-w-2xl mx-auto mb-10"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         Discover Dubai's most trusted developers shaping the future of luxury living,from iconic landmarks to master-planned communities.
-                    </p>
+                    </motion.p>
                     <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4">
                         <Link href="/properties" className="bg-white text-black px-8 py-4 rounded-full font-bold text-sm hover:bg-[#C5A365] hover:text-white transition-all flex items-center gap-2">
                             Get Property Options <ArrowRight size={16} />
@@ -106,11 +102,17 @@ const Developers = () => {
             </section>
 
             {/* 2. Why Choose Section */}
-            <section className="py-24 bg-white relative">
+            <motion.section 
+                className="py-24 bg-white relative"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16">
                         {/* Left Text */}
-                        <div className="lg:w-1/3">
+                        <motion.div 
+                            className="lg:w-1/3"
+                            {...fadeInUp}
+                        >
                             <span className="bg-[#F9F7F2] text-[#C5A365] px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-6 inline-block">
                                 Why It Matters
                             </span>
@@ -126,45 +128,63 @@ const Developers = () => {
                             <button className="mt-8 border border-[#C5A365] text-[#C5A365] px-8 py-3 rounded-full font-bold hover:bg-[#C5A365] hover:text-white transition-all">
                                 Learn More
                             </button>
-                        </div>
+                        </motion.div>
 
                         {/* Right Cards Grid */}
-                        <div className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                        <motion.div 
+                            className="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6"
+                            {...staggerContainer}
+                        >
+                            <motion.div 
+                                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                                variants={staggerItem}
+                            >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl flex items-center justify-center text-[#C5A365] mb-6">
                                     <ShieldCheck size={24} />
                                 </div>
                                 <h3 className="text-xl font-bold text-secondary mb-3">Quality Assurance</h3>
                                 <p className="text-gray-500 text-sm leading-relaxed">High construction standards and premium materials ensure lasting value.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                            </motion.div>
+                            <motion.div 
+                                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                                variants={staggerItem}
+                            >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl flex items-center justify-center text-[#C5A365] mb-6">
                                     <Clock size={24} />
                                 </div>
                                 <h3 className="text-xl font-bold text-secondary mb-3">Timely Delivery</h3>
                                 <p className="text-gray-500 text-sm leading-relaxed">Proven track record of completing projects on schedule.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                            </motion.div>
+                            <motion.div 
+                                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                                variants={staggerItem}
+                            >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl flex items-center justify-center text-[#C5A365] mb-6">
                                     <TrendingUp size={24} />
                                 </div>
                                 <h3 className="text-xl font-bold text-secondary mb-3">Strong Returns</h3>
                                 <p className="text-gray-500 text-sm leading-relaxed">Better resale and rental value from reputed developers.</p>
-                            </div>
-                            <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                            </motion.div>
+                            <motion.div 
+                                className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
+                                variants={staggerItem}
+                            >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl flex items-center justify-center text-[#C5A365] mb-6">
                                     <Home size={24} />
                                 </div>
                                 <h3 className="text-xl font-bold text-secondary mb-3">Community Focus</h3>
                                 <p className="text-gray-500 text-sm leading-relaxed">Lifestyle amenities and modern infrastructure for comfortable living.</p>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 3. Developer Categories */}
-            <section className="py-12 bg-[#FAFAFA]">
+            <motion.section 
+                className="py-12 bg-[#FAFAFA]"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
 
                     <DeveloperSection
@@ -192,20 +212,33 @@ const Developers = () => {
                     />
 
                     {/* 5. Government Section */}
-                    <div className="mb-24">
-                        <div className="mb-10 pl-2">
+                    <motion.div 
+                        className="mb-24"
+                        {...scrollReveal}
+                    >
+                        <motion.div 
+                            className="mb-10 pl-2"
+                            {...fadeInUp}
+                        >
                             <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-2 block">Featured</span>
                             <h2 className="text-3xl md:text-5xl font-display text-secondary mb-4">Government & Master Development Authorities</h2>
                             <p className="text-gray-500 max-w-3xl leading-relaxed">
                                 Government-backed entities play a vital role in Dubai's long-term urban planning, infrastructure, and sustainable development.
                             </p>
-                        </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
+                        </motion.div>
+                        <motion.div 
+                            className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl"
+                            {...staggerContainer}
+                        >
                             {[
                                 { name: "Dubai Municipality", image: "/assets/dubai muncipalty.png", desc: "Responsible for urban planning, regulations, infrastructure, and environmental sustainability across the emirate.", largeLogo: true },
                                 { name: "EXPO CITY DUBAI", image: "/assets/Expo city dubai.png", desc: "A future-ready smart city built on the legacy of Expo 2020, integrating innovation, sustainability, and modern urban living." }
                             ].map((dev, idx) => (
-                                <div key={idx} className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all group flex flex-col h-full w-full max-w-md">
+                                <motion.div 
+                                    key={idx} 
+                                    className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all group flex flex-col h-full w-full max-w-md"
+                                    variants={staggerItem}
+                                >
                                     <div className={`h-32 flex items-center justify-center mb-6 border-b border-gray-50 ${dev.largeLogo ? 'p-0.5' : 'p-6'}`}>
                                         <img src={dev.image} alt={dev.name} className="max-h-full max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
                                     </div>
@@ -215,47 +248,75 @@ const Developers = () => {
                                     <button className="flex items-center gap-2 text-[#C5A365] text-sm font-bold uppercase tracking-wider group-hover:gap-3 transition-all">
                                         View Projects <ArrowRight size={16} />
                                     </button>
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 4. Explore Properties Map Section */}
-            <section className="bg-white py-24 relative overflow-hidden">
+            <motion.section 
+                className="bg-white py-24 relative overflow-hidden"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
                     <span className="text-[#C5A365] tracking-[0.2em] text-xs uppercase mb-4 block">Explore by Developer</span>
                     <h2 className="text-4xl md:text-5xl font-display text-black mb-12">Explore Properties by Trusted Developers</h2>
 
                     <div className="max-w-6xl mx-auto bg-black rounded-3xl overflow-hidden relative p-8 md:p-12">
-                        <div className="flex flex-col items-center gap-8 mb-12 relative z-20">
-                            <h3 className="text-2xl md:text-5xl font-black text-white text-center">Choose from Top Developers</h3>
-
-                            <div className="flex flex-wrap justify-center gap-3">
-                                <button className="px-6 py-2 bg-white text-black rounded-full text-xs font-bold border border-white">All</button>
-                                {["EMAAR", "DAMAC", "SOBHA", "MERAAS", "AZIZI", "NAKHEEL"].map((dev, i) => (
-                                    <button key={i} className="px-6 py-2 bg-transparent text-gray-400 rounded-full text-xs font-bold border border-white/20 hover:border-white hover:text-white transition-all">
-                                        {dev}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Map Area */}
-                        <div className="w-full bg-[#1a1a1a] relative rounded-2xl overflow-hidden">
-                            {/* Map Placeholder */}
-                            <img
-                                src="/assets/developers-page-map.png"
-                                alt="Dubai Map"
-                                className="w-full h-auto object-contain"
-                            />
-                        </div>
+                        <Hotspots 
+                            title="Choose from Top Developers"
+                            showTitle={true}
+                            showFilters={false}
+                            showDeveloperFilters={true}
+                            developerFilters={["All", "EMAAR", "DAMAC", "SOBHA", "MERAAS", "AZIZI", "NAKHEEL"]}
+                            filterOptions={["All", "Villa", "2 BHK", "3 BHK", "1 BHK"]}
+                            className="px-0 py-0 bg-transparent"
+                        />
                     </div>
                 </div>
-            </section>
+            </motion.section>
         </div>
     );
 };
+
+const DeveloperSection = ({ title, subtitle, data }) => (
+    <motion.div 
+        className="mb-24"
+        {...scrollReveal}
+    >
+        <motion.div 
+            className="mb-10 pl-2"
+            {...fadeInUp}
+        >
+            <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-2 block">Featured</span>
+            <h2 className="text-3xl md:text-5xl font-display text-secondary mb-4">{title}</h2>
+            <p className="text-gray-500 max-w-3xl leading-relaxed">{subtitle}</p>
+        </motion.div>
+        <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            {...staggerContainer}
+        >
+            {data.map((dev, idx) => (
+                <motion.div 
+                    key={idx} 
+                    className="bg-white p-8 rounded-2xl border border-gray-100 hover:border-[#C5A365] hover:shadow-lg transition-all group flex flex-col h-full w-full max-w-md mx-auto"
+                    variants={staggerItem}
+                >
+                    <div className={`h-32 flex items-center justify-center mb-6 border-b border-gray-50 ${dev.largeLogo ? 'p-0.5' : 'p-3'}`}>
+                        <img src={dev.image} alt={dev.name} className="max-h-full max-w-full object-contain grayscale group-hover:grayscale-0 transition-all duration-300" />
+                    </div>
+                    <p className="text-gray-500 text-sm leading-relaxed mb-8 flex-grow">
+                        {dev.desc}
+                    </p>
+                    <button className="flex items-center gap-2 text-[#C5A365] text-sm font-bold uppercase tracking-wider group-hover:gap-3 transition-all">
+                        View Projects <ArrowRight size={16} />
+                    </button>
+                </motion.div>
+            ))}
+        </motion.div>
+    </motion.div>
+);
 
 export default Developers;

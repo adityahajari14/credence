@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Menu, X, Phone, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +21,12 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
+        <motion.nav 
+            className="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+        >
             <div className="container mx-auto px-4 md:px-6">
                 <div className="flex justify-between items-center h-20">
                     {/* Logo */}
@@ -52,7 +58,12 @@ const Navbar = () => {
                             <Phone size={16} className="text-primary mr-2" />
                             +971 4 591 7373
                         </div>
-                        <a href="https://wa.me/971588919223" target="_blank" rel="noreferrer" className="bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-2.5 px-6 rounded-full transition-colors duration-300 flex items-center gap-2">
+                        <a 
+                            href="https://wa.me/971588919223" 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="bg-green-600 hover:bg-green-700 text-white text-sm font-bold py-2.5 px-6 rounded-full transition-colors duration-300 flex items-center gap-2"
+                        >
                             <MessageCircle size={18} />
                             WhatsApp Now
                         </a>
@@ -68,22 +79,50 @@ const Navbar = () => {
             </div>
 
             {/* Mobile Menu */}
-            {isOpen && (
-                <div className="lg:hidden bg-black border-t border-white/10">
-                    <div className="px-4 pt-4 pb-6 space-y-2">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.name}
-                                href={item.path}
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-3 py-2 text-base font-medium rounded-md ${pathname === item.path
-                                    ? 'text-primary bg-white/5'
-                                    : 'text-gray-300 hover:text-primary hover:bg-white/5'
-                                    }`}
-                            >
-                                {item.name}
-                            </Link>
-                        ))}
+            <AnimatePresence>
+                {isOpen && (
+                    <motion.div 
+                        className="lg:hidden bg-black border-t border-white/10"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <motion.div 
+                            className="px-4 pt-4 pb-6 space-y-2"
+                            initial="closed"
+                            animate="open"
+                            exit="closed"
+                            variants={{
+                                open: {
+                                    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+                                },
+                                closed: {
+                                    transition: { staggerChildren: 0.05, staggerDirection: -1 }
+                                }
+                            }}
+                        >
+                            {navItems.map((item, index) => (
+                                <motion.div
+                                    key={item.name}
+                                    variants={{
+                                        open: { opacity: 1, x: 0 },
+                                        closed: { opacity: 0, x: -20 }
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <Link
+                                        href={item.path}
+                                        onClick={() => setIsOpen(false)}
+                                        className={`block px-3 py-2 text-base font-medium rounded-md ${pathname === item.path
+                                            ? 'text-primary bg-white/5'
+                                            : 'text-gray-300 hover:text-primary hover:bg-white/5'
+                                            }`}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                </motion.div>
+                            ))}
                         <div className="pt-4 space-y-4">
                             <div className="flex items-center text-white px-3 text-sm font-medium">
                                 <Phone size={16} className="text-primary mr-2" />
@@ -93,10 +132,11 @@ const Navbar = () => {
                                 WhatsApp Now
                             </a>
                         </div>
-                    </div>
-                </div>
-            )}
-        </nav>
+                    </motion.div>
+                </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.nav>
     );
 };
 

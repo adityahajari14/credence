@@ -9,18 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "framer-motion": "^12.27.5",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.562.0",
     "next": "^15.1.6",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.1",
     "eslint-config-next": "^15.1.6",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.26",
+    "globals": "^17.0.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2"

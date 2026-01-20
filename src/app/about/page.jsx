@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import {
     ShieldCheck,
     FileText,
@@ -22,6 +23,7 @@ import {
     ChevronDown
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { fadeInUp, scrollReveal, staggerContainer, staggerItem, fadeInOnScroll } from '@/utils/animations';
 
 const About = () => {
     const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -75,17 +77,32 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <div className="flex items-center justify-center gap-4 mb-4">
+                    <motion.div 
+                        className="flex items-center justify-center gap-4 mb-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                    >
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em]">EST. 2010 • DUBAI</span>
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
-                    </div>
-                    <h1 className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight">
+                    </motion.div>
+                    <motion.h1 
+                        className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.1 }}
+                    >
                         A Trusted Name in  <br /> <span className="text-[#C5A365]">Dubai Real Estate</span>
-                    </h1>
-                    <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10">
+                    </motion.h1>
+                    <motion.p 
+                        className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                    >
                         Expert guidance for investors, homeowners, and global buyers—delivering secure, high-value property opportunities across Dubai.
-                    </p>
+                    </motion.p>
 
                     <div className="flex flex-col sm:flex-row gap-4 mb-4 justify-center">
                         <Link href="/properties" className="bg-white hover:bg-[#C5A365] text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-white/25 hover:shadow-[#C5A365]/25 flex items-center gap-2">
@@ -100,10 +117,16 @@ const About = () => {
             </section>
 
             {/* 2. Who We Are (Building Trust) */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-start">
-                        <div className="flex-1">
+                        <motion.div 
+                            className="flex-1"
+                            {...fadeInUp}
+                        >
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                                 <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest">Who We Are</span>
@@ -126,28 +149,38 @@ const About = () => {
                                     "Real estate is not just about buying property, it's about building long-term value and trust."
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                        <motion.div 
+                            className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full"
+                            {...staggerContainer}
+                        >
                             {[
                                 { icon: <ShieldCheck size={24} />, title: "RERA Licensed", desc: "Fully compliant & regulated" },
                                 { icon: <FileText size={24} />, title: "DLD Aligned", desc: "Official gov. standards" },
                                 { icon: <Users size={24} />, title: "Global Clients", desc: "Trusted by investors worldwide" },
                                 { icon: <Award size={24} />, title: "Premium Partners", desc: "Top developer connections" }
                             ].map((item, idx) => (
-                                <div key={idx} className="bg-[#F9F7F2] p-8 rounded-sm hover:-translate-y-1 transition-transform duration-300">
+                                <motion.div 
+                                    key={idx} 
+                                    className="bg-[#F9F7F2] p-8 rounded-sm hover:-translate-y-1 transition-transform duration-300"
+                                    variants={staggerItem}
+                                >
                                     <div className="text-[#C5A365] mb-4">{item.icon}</div>
                                     <h4 className="text-secondary font-bold mb-1">{item.title}</h4>
                                     {/* <p className="text-gray-500 text-sm">{item.desc}</p> */}
-                                </div>
+                                </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 3. Our Purpose (Mission & Vision) */}
-            <section className="py-24 bg-[#1A1A1A] relative overflow-hidden">
+            <motion.section 
+                className="py-24 bg-[#1A1A1A] relative overflow-hidden"
+                {...scrollReveal}
+            >
                 {/* Decorative circle */}
                 <div className="absolute top-0 left-0 w-[600px] h-[600px] border border-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
 
@@ -160,9 +193,15 @@ const About = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+                        {...staggerContainer}
+                    >
                         {/* Mission */}
-                        <div className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col">
+                        <motion.div 
+                            className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col"
+                            variants={staggerItem}
+                        >
                             <div className="w-12 h-12 border border-[#C5A365] flex items-center justify-center text-[#C5A365] mb-6">
                                 <Target size={24} />
                             </div>
@@ -175,10 +214,13 @@ const About = () => {
                             <div className="pt-6 border-t border-white/10 flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-[#666] mt-auto">
                                 <span>Empowerment</span><span>•</span><span>Guidance</span><span>•</span><span>Growth</span>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Vision */}
-                        <div className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col">
+                        <motion.div 
+                            className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col"
+                            variants={staggerItem}
+                        >
                             <div className="w-12 h-12 border border-[#C5A365] flex items-center justify-center text-[#C5A365] mb-6">
                                 <Compass size={24} />
                             </div>
@@ -189,13 +231,16 @@ const About = () => {
                             <div className="pt-6 border-t border-white/10 flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-[#666] mt-auto">
                                 <span>Trust</span><span>•</span><span>Intelligence</span><span>•</span><span>Leadership</span>
                             </div>
-                        </div>
-                    </div>
+                        </motion.div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 4. Why Choose Credence */}
-            <section className="py-24 bg-[#F9F9F9]">
+            <motion.section 
+                className="py-24 bg-[#F9F9F9]"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -208,28 +253,38 @@ const About = () => {
                         </h2>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+                        {...staggerContainer}
+                    >
                         {[
                             { icon: <Lightbulb size={20} />, title: "Client-First Approach", desc: "Every recommendation starts with understanding client goals — investment, lifestyle, or long-term growth." },
                             { icon: <TrendingUp size={20} />, title: "Global & Multilingual Expertise", desc: "Market-savvy professionals with international investor experience, offering seamless support across borders." },
                             { icon: <Heart size={20} />, title: "End-to-End Real Estate Services", desc: "Sales · Leasing · Investments · Off-Plan · Property Management · Mortgage Assistance · Golden Visa Support · Transaction Process & Documentation." },
                             { icon: <Building2 size={20} />, title: "Strong Developer Partnerships", desc: "Collaborations with 30+ developers across the UAE, including Dubai's leading names: Emaar · Damac · Nakheel · Sobha · Azizi · and more." }
                         ].map((item, idx) => (
-                            <div key={idx} className="bg-white p-8 border border-gray-100 flex flex-col items-start hover:shadow-lg transition-shadow relative overflow-hidden group">
+                            <motion.div 
+                                key={idx} 
+                                className="bg-white p-8 border border-gray-100 flex flex-col items-start hover:shadow-lg transition-shadow relative overflow-hidden group"
+                                variants={staggerItem}
+                            >
                                 <div className="w-10 h-10 border border-gray-200 flex items-center justify-center text-gray-400 mb-6 group-hover:border-[#C5A365] group-hover:text-[#C5A365] transition-colors">
                                     {item.icon}
                                 </div>
                                 <h4 className="text-xl font-display text-secondary mb-3">{item.title}</h4>
                                 <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                                 <div className="absolute bottom-4 right-4 w-6 h-6 rounded-full border border-gray-100 group-hover:bg-[#C5A365]/10"></div>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 5. Our Team */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -321,18 +376,27 @@ const About = () => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </motion.section>
 
             {/* 6. Achievements */}
-            <section className="py-24 bg-[#F9F9F9]">
+            <motion.section 
+                className="py-24 bg-[#F9F9F9]"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl text-center">
-                    <div className="flex items-center justify-center gap-4 mb-16">
+                    <motion.div 
+                        className="flex items-center justify-center gap-4 mb-16"
+                        {...fadeInUp}
+                    >
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest">Our Achievements</span>
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 justify-items-center">
+                    <motion.div 
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 justify-items-center"
+                        {...staggerContainer}
+                    >
                         {[
                             { title: "Team Recognition", img: "/assets/awards and team recog/team (1).png" },
                             { title: "Awards & Certifications", img: "/assets/awards and team recog/award.png" },
@@ -341,18 +405,25 @@ const About = () => {
                             { title: "Team Event", img: "/assets/awards and team recog/team (3).png" },
                             { title: "Industry Recognition", img: "/assets/awards and team recog/awar3.png" }
                         ].map((item, idx) => (
-                            <div key={idx} className="bg-white p-6 border border-[#E5E5E5] hover:border-[#C5A365] transition-colors w-full max-w-sm">
+                            <motion.div 
+                                key={idx} 
+                                className="bg-white p-6 border border-[#E5E5E5] hover:border-[#C5A365] transition-colors w-full max-w-sm"
+                                variants={staggerItem}
+                            >
                                 <div className="bg-[#F9F7F2] mb-6 overflow-hidden rounded-sm p-4 flex items-center justify-center h-64">
                                     <img src={item.img} alt={item.title} className="w-full h-full object-contain" />
                                 </div>
                                 <h4 className="text-secondary font-bold">{item.title}</h4>
-                            </div>
+                            </motion.div>
                         ))}
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
             {/* 8. FAQ */}
-            <section className="py-24 bg-white border-t border-gray-100">
+            <motion.section 
+                className="py-24 bg-white border-t border-gray-100"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 md:px-6 max-w-4xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -434,16 +505,25 @@ const About = () => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </motion.section>
             {/* 7. Testimonials (Slider) */}
-            <section className="py-24 bg-white">
+            <motion.section 
+                className="py-24 bg-white"
+                {...scrollReveal}
+            >
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <div className="text-center mb-16">
+                    <motion.div 
+                        className="text-center mb-16"
+                        {...fadeInUp}
+                    >
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Testimonials</span>
                         <h2 className="text-4xl md:text-5xl font-display text-secondary">Happy Clients</h2>
-                    </div>
+                    </motion.div>
 
-                    <div className="max-w-4xl mx-auto relative">
+                    <motion.div 
+                        className="max-w-4xl mx-auto relative"
+                        {...fadeInOnScroll}
+                    >
                         {/* Slider Content */}
                         <div className="bg-[#F9F9F9] p-8 md:p-12 rounded-2xl shadow-sm text-center relative overflow-hidden">
                             {/* Quote Icon */}
@@ -505,9 +585,9 @@ const About = () => {
                                 <ChevronRight size={20} />
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
-            </section>
+            </motion.section>
 
 
         </div>
