@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { X } from "lucide-react";
@@ -29,12 +28,8 @@ export default function PropertyInfoPanel({ property, onClose }: Props) {
   const propertyId = property.id || property.propertyId;
 
   return (
-    <motion.div
-      initial={{ x: "100%" }}
-      animate={{ x: 0 }}
-      exit={{ x: "100%" }}
-      transition={{ type: "spring", damping: 25, stiffness: 200 }}
-      className="absolute right-0 top-0 h-full w-full md:w-[400px] lg:w-[450px] bg-white shadow-2xl z-[1000] overflow-y-auto"
+    <div
+      className="absolute right-0 top-0 h-full w-full md:w-[400px] lg:w-[450px] bg-white shadow-2xl z-[1000] overflow-y-auto animate-slide-in-left transition-transform duration-300"
     >
       {/* Close Button */}
       <button
@@ -115,7 +110,7 @@ export default function PropertyInfoPanel({ property, onClose }: Props) {
           </button>
         </Link>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

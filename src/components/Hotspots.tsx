@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { geocodeRegion } from "@/utils/geocodeRegion";
 import { formatPrice } from "@/utils/formatPrice";

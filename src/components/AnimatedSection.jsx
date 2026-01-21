@@ -1,21 +1,20 @@
 'use client'
 
-import { motion } from 'framer-motion';
-import { scrollReveal } from '@/utils/animations';
+import { useScrollAnimation } from '@/utils/useScrollAnimation';
 
 /**
  * AnimatedSection - Wrapper component for sections with scroll-triggered animations
  */
-export default function AnimatedSection({ children, className = '', delay = 0 }) {
+export default function AnimatedSection({ children, className = '', delay = 0, animationType = 'fade-in-up' }) {
+  const ref = useScrollAnimation({ animationType, once: true });
+  
   return (
-    <motion.section
+    <section
+      ref={ref}
       className={className}
-      initial={scrollReveal.initial}
-      whileInView={scrollReveal.whileInView}
-      viewport={scrollReveal.viewport}
-      transition={{ ...scrollReveal.transition, delay }}
+      style={{ transitionDelay: `${delay}s` }}
     >
       {children}
-    </motion.section>
+    </section>
   );
 }

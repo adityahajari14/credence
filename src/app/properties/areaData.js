@@ -17,7 +17,7 @@ export const allAreas = [
         name: "Al Furjan",
         roi: "6-8% ROI",
         price: "AED 1.2M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/al-furjan.jpeg",
         desc: "Developed by Nakheel, Al Furjan is a vibrant residential community located near Jebel Ali.",
         features: ["Family-friendly", "Community", "Outdoor activities"],
         details: {
@@ -31,7 +31,7 @@ export const allAreas = [
         name: "Arjan",
         roi: "7-9% ROI",
         price: "AED 800K",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/arjan.jpg",
         desc: "Arjan is a developing district within Dubailand, initiated in 2006, known for housing attractions like the Dubai Miracle Garden.",
         features: ["Affordable", "Suburban", "Growing"],
         details: {
@@ -45,7 +45,7 @@ export const allAreas = [
         name: "Arabian Ranches",
         roi: "5-6% ROI",
         price: "AED 2.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/arabian-ranches.webp",
         desc: "Launched in 2004 by Emaar Properties, Arabian Ranches is an upscale gated villa community located in Wadi Al Safa 6.",
         features: ["Gated", "Family-friendly", "Tranquil"],
         details: {
@@ -59,7 +59,7 @@ export const allAreas = [
         name: "Bluewaters Island",
         roi: "5-7% ROI",
         price: "AED 2.5M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/bluewater-islands.webp",
         desc: "Bluewaters Island is an artificial island located 400 meters off the Jumeirah Beach Residence coastline.",
         features: ["Beachfront", "Luxurious", "Iconic"],
         details: {
@@ -87,7 +87,7 @@ export const allAreas = [
         name: "DAMAC Hills One",
         roi: "6-7% ROI",
         price: "AED 1.1M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/damac-hill1.jpg",
         desc: "DAMAC Hills is a luxury residential community developed by DAMAC Properties, covering approximately 42 million square feet.",
         features: ["Golf Living", "Family-Friendly", "Resort-like"],
         details: {
@@ -101,7 +101,7 @@ export const allAreas = [
         name: "DIFC",
         roi: "5-6% ROI",
         price: "AED 1.5M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/difc.webp",
         desc: "DIFC is a leading financial hub in the Middle East, Africa, and South Asia region, covering 110 hectares (272 acres).",
         features: ["Financial Hub", "Premium", "Urban"],
         details: {
@@ -143,7 +143,7 @@ export const allAreas = [
         name: "Dubai Harbour",
         roi: "6-7% ROI",
         price: "AED 1.8M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/dubai-harbour.jpg",
         desc: "Dubai Harbour is a mixed-use waterfront development envisioned as a maritime lifestyle destination.",
         features: ["Maritime", "Luxury", "Beachfront"],
         details: {
@@ -157,7 +157,7 @@ export const allAreas = [
         name: "Town Square",
         roi: "7-8% ROI",
         price: "AED 700K",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/town-square.webp",
         desc: "Developed by Nshama Group, Town Square offers a family-friendly environment with a focus on community living.",
         features: ["Affordable", "Family-friendly", "Community"],
         details: {
@@ -199,7 +199,7 @@ export const allAreas = [
         name: "MBR City / Meydan",
         roi: "6-7% ROI",
         price: "AED 1.4M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/meydan.webp",
         desc: "MBR City is one of Dubai’s most prestigious master developments, integrating luxury living and vast green spaces.",
         features: ["Prestigious", "Green Spaces", "Waterfront"],
         details: {
@@ -213,7 +213,7 @@ export const allAreas = [
         name: "Emirates Hills",
         roi: "3-5% ROI",
         price: "AED 10.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/emirate-hills.jpg",
         desc: "Emirates Hills is an exclusive gated community, often referred to as the 'Beverly Hills of Dubai.'",
         features: ["Ultra-Luxury", "Gated", "Exclusive"],
         details: {
@@ -227,7 +227,7 @@ export const allAreas = [
         name: "Motor City",
         roi: "7-8% ROI",
         price: "AED 800K",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/motor-city.jpg",
         desc: "Motor City is a mixed-use development inspired by automotive themes, known for its spacious layouts.",
         features: ["Automotive-themed", "Suburban", "Spacious"],
         details: {
@@ -241,7 +241,7 @@ export const allAreas = [
         name: "Jumeirah Golf Estates",
         roi: "5-6% ROI",
         price: "AED 3.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jumeirah-golf-estates.jpeg",
         desc: "Jumeirah Golf Estates features themed communities cantered around two 18-hole golf courses.",
         features: ["Golf Course", "Tranquil", "Upscale"],
         details: {
@@ -255,7 +255,7 @@ export const allAreas = [
         name: "Jumeirah Islands",
         roi: "4-5% ROI",
         price: "AED 5.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jumeirah-islands.jpg",
         desc: "Jumeirah Islands is a unique residential development comprising 50 man-made islands.",
         features: ["Waterfront", "Private", "Exclusive"],
         details: {
@@ -269,7 +269,7 @@ export const allAreas = [
         name: "Jumeirah Lake Towers (JLT)",
         roi: "7-8% ROI",
         price: "AED 1.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jumeirah-lake-towers.jpg",
         desc: "JLT is a mixed-use development featuring 80 towers organized around three artificial lakes.",
         features: ["Urban", "Dynamic", "Well-connected"],
         details: {
@@ -283,7 +283,7 @@ export const allAreas = [
         name: "Jumeirah Park",
         roi: "5-6% ROI",
         price: "AED 3.5M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jumeirah-park.jpg",
         desc: "Jumeirah Park is a family-oriented community comprising more than 3,000 villas across nine sub-districts.",
         features: ["Family-oriented", "Peaceful", "Spacious"],
         details: {
@@ -297,7 +297,7 @@ export const allAreas = [
         name: "Jumeirah Village Circle (JVC)",
         roi: "8-9% ROI",
         price: "AED 600K",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jvc.jpg",
         desc: "JVC is a master-planned community by Nakheel, popular among young professionals and families.",
         features: ["Affordable", "Family-friendly", "High Yield"],
         details: {
@@ -311,7 +311,7 @@ export const allAreas = [
         name: "Jumeirah Village Triangle (JVT)",
         roi: "7-8% ROI",
         price: "AED 1.2M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jvt.jpg",
         desc: "JVT is a residential community known for its tranquil ambiance and family-friendly environment.",
         features: ["Serene", "Family-friendly", "Spacious"],
         details: {
@@ -325,7 +325,7 @@ export const allAreas = [
         name: "Green Community (Dubai Investment Park)",
         roi: "6-7% ROI",
         price: "AED 2.5M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/green-community.webp",
         desc: "Situated within DIP, Green Community is renowned for its lush landscapes and family-friendly atmosphere.",
         features: ["Lush Landscapes", "Tranquil", "Suburban"],
         details: {
@@ -339,7 +339,7 @@ export const allAreas = [
         name: "Pearl Jumeirah",
         roi: "4-6% ROI",
         price: "AED 6.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/pearl-jumeirah.jpg",
         desc: "Pearl Jumeirah is an exclusive man-made island offering a blend of luxury and seclusion.",
         features: ["Beachfront", "Exclusive", "Bespoke"],
         details: {
@@ -367,7 +367,7 @@ export const allAreas = [
         name: "Palm Jebel Ali",
         roi: "N/A",
         price: "Contact for price",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/palm-jebel-ali.webp",
         desc: "Palm Jebel Ali is an ambitious man-made island project, designed to accommodate over 250,000 residents.",
         features: ["Ambitious", "Waterfront", "Future Hub"],
         details: {
@@ -381,7 +381,7 @@ export const allAreas = [
         name: "Dubai World Islands",
         roi: "N/A",
         price: "Contact for price",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/dubai-world-islands.jpg",
         desc: "The World Islands is an ambitious archipelago of approximately 260 man-made islands shaped like a world map.",
         features: ["Exclusive", "Iconic", "Ultra-Luxury"],
         details: {
@@ -395,7 +395,7 @@ export const allAreas = [
         name: "Dubai Islands",
         roi: "6-7% ROI",
         price: "AED 2.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/dubai-islands.jpg",
         desc: "Dubai Islands is a cluster of five man-made islands designed to enhance Dubai's coastline.",
         features: ["Waterfront", "Tourism", "Resort-style"],
         details: {
@@ -409,7 +409,7 @@ export const allAreas = [
         name: "Dubai Maritime City",
         roi: "6-7% ROI",
         price: "AED 1.3M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/dubai-maritime-city.webp",
         desc: "Dubai Maritime City is a multipurpose maritime zone strategically located between Port Rashid and Dubai Dry Docks.",
         features: ["Maritime Hub", "Strategic", "Business"],
         details: {
@@ -423,7 +423,7 @@ export const allAreas = [
         name: "Dubai South",
         roi: "7-9% ROI",
         price: "AED 500K",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/dubai-south.webp",
         desc: "Dubai South is a master-planned city encompassing residential, commercial, and aviation sectors.",
         features: ["Aviation Hub", "Affordable", "Self-sustained"],
         details: {
@@ -451,7 +451,7 @@ export const allAreas = [
         name: "Jebel Ali",
         roi: "6-7% ROI",
         price: "AED 1.0M",
-        img: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=800",
+        img: "/assets/jebel-ali.jpg",
         desc: "Jebel Ali is a prominent port town, home to the world's largest man-made harbour.",
         features: ["Industrial Hub", "Connectivity", "Logistics"],
         details: {

@@ -2,22 +2,21 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Bed, Bath, Square, MapPin, Phone, MessageCircle, Building2, ArrowRight } from 'lucide-react';
 import { formatPrice } from '@/lib/properties';
 import InquiryModal from '@/components/property/inquiry-modal';
+import { useScrollAnimation } from '@/utils/useScrollAnimation';
 
 const PropertyCard = ({ property, index = 0 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const ref = useScrollAnimation({ animationType: 'fade-in', once: true });
 
     return (
         <>
-            <motion.div
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100"
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
+            <div
+                ref={ref}
+                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group border border-gray-100 hover-lift"
+                style={{ transitionDelay: `${index * 0.05}s` }}
             >
                 {/* Image Container */}
                 <div className="relative h-64 overflow-hidden">
@@ -92,7 +91,7 @@ const PropertyCard = ({ property, index = 0 }) => {
                         </button>
                     </div>
                 </div>
-            </motion.div>
+            </div>
 
             {/* Inquiry Modal */}
             <InquiryModal

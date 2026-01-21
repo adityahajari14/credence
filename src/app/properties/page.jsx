@@ -326,19 +326,19 @@ function PropertiesContent() {
                 </div>
 
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <h1 className="text-5xl md:text-6xl font-display text-white mb-6 leading-tight">
+                    <h1 className="text-5xl md:text-6xl font-display text-white mb-6 leading-tight animate-fade-in-up">
                         Find the Right Property in Dubai
                     </h1>
-                    <h2 className="text-3xl md:text-5xl font-display text-[#C5A365] mb-8">
+                    <h2 className="text-3xl md:text-5xl font-display text-[#C5A365] mb-8 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                         — Backed by Insight, Not Guesswork
                     </h2>
-                    <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed mb-10">
+                    <p className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed mb-10 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                         Explore Dubai's most promising real estate opportunities across off-plan, waterfront,
                         affordable, and luxury branded properties. Whether you're investing, relocating, or
                         expanding your portfolio, Credence helps you make confident, future-ready decisions.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4">
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 mb-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                         <Link href="/properties" className="bg-white text-black px-8 py-4 rounded-full font-bold text-sm hover:bg-[#C5A365] hover:text-white transition-all flex items-center gap-2">
                             Get Property Options <ArrowRight size={16} />
                         </Link>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
     Home,
     Instagram,
@@ -14,10 +13,8 @@ import {
     ArrowRight,
     MessageCircle
 } from 'lucide-react';
-import { scrollReveal, staggerContainer, staggerItem } from '@/utils/animations';
 
 const Footer = () => {
-
     const handleLanguageChange = (langCode) => {
         // Clear existing cookies to avoid conflicts
         document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -46,10 +43,7 @@ const Footer = () => {
         <footer className="font-sans">
 
             {/* 1. CTA Banner (Top Section) */}
-            <motion.section
-                className="py-24 bg-black relative overflow-hidden"
-                {...scrollReveal}
-            >
+            <section className="py-24 bg-black relative overflow-hidden">
                 <div className="absolute inset-0">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/20 blur-[120px] rounded-full" />
                 </div>
@@ -85,30 +79,15 @@ const Footer = () => {
                         <span>+971 58 891 9223</span>
                     </a>
                 </div>
-            </motion.section>
+            </section>
 
             {/* 2. Main Footer (Bottom Section) */}
-            <motion.div
-                className="bg-black py-16 text-white border-t border-white/5"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <section className="bg-black py-16 text-white border-t border-white/5">
                 <div className="container mx-auto px-4 md:px-6 lg:pr-20">
-                    <motion.div
-                        className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 lg:gap-2"
-                        initial="initial"
-                        whileInView="animate"
-                        viewport={{ once: true, margin: "-50px" }}
-                        variants={staggerContainer}
-                    >
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 lg:gap-2">
 
                         {/* Column 1: Company Info & Logo */}
-                        <motion.div
-                            className="col-span-2 lg:col-span-1"
-                            variants={staggerItem}
-                        >
+                        <div className="col-span-2 lg:col-span-1">
                             <div className="flex items-center gap-2 mb-6 text-white">
                                 <img src="/logo.png" alt="Credence Realtor" className="w-[180px] h-auto object-contain" />
                             </div>
@@ -127,10 +106,10 @@ const Footer = () => {
                                     </a>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Column 2: Properties */}
-                        <motion.div variants={staggerItem}>
+                        <div>
                             <h3 className="font-semibold text-white mb-6">Properties</h3>
                             <ul className="space-y-3">
                                 {[
@@ -149,7 +128,7 @@ const Footer = () => {
                                     </li>
                                 ))}
                             </ul>
-                        </motion.div>
+                        </div>
 
                         {/* Column 3: Developers */}
                         <div>
@@ -282,9 +261,9 @@ const Footer = () => {
                             </ul>
                         </div>
 
-                    </motion.div>
+                    </div>
                 </div>
-            </motion.div>
+            </section>
 
             {/* 3. Bottom Bar */}
             <div className="bg-[#050505] border-t border-white/5 py-8">

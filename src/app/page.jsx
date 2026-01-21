@@ -4,11 +4,13 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { ArrowRight, MapPin, ChevronDown, ChevronUp, Star, Phone, MessageCircle, Percent, TrendingUp, Award, ShieldCheck, Users, Building2, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { getPaginatedProperties, formatPrice } from '@/lib/properties';
-import { fadeInUp, fadeIn, scrollReveal, staggerContainer, staggerItem, hoverLift, fadeInOnScroll } from '@/utils/animations';
 import Hotspots from '@/components/Hotspots';
 import { openWhatsApp } from '@/utils/whatsappRedirect';
+import { useScrollAnimations } from '@/utils/useScrollAnimation';
+import AnimatedSection from '@/components/AnimatedSection';
+import AnimatedContainer from '@/components/AnimatedContainer';
+import AnimatedItem from '@/components/AnimatedItem';
 
 const HomeContent = () => {
     const pathname = usePathname();
@@ -17,6 +19,9 @@ const HomeContent = () => {
     const [recentLaunches, setRecentLaunches] = useState([]);
     const [topPicks, setTopPicks] = useState([]);
     const [isLoadingProperties, setIsLoadingProperties] = useState(true);
+    
+    // Initialize scroll animations
+    useScrollAnimations();
     const [contactFormData, setContactFormData] = useState({
         name: '',
         countryCode: '+971',
@@ -84,7 +89,9 @@ const HomeContent = () => {
                     1,
                     4
                 );
-                setRecentLaunches(recentResult.properties || []);
+                const recentProps = recentResult.properties || [];
+                console.log('Recent launches loaded:', recentProps.length);
+                setRecentLaunches(recentProps);
 
                 // Fetch top picks - could be featured or top properties, limit 3
                 // For now, we'll use the first 3 properties as top picks
@@ -94,7 +101,9 @@ const HomeContent = () => {
                     1,
                     3
                 );
-                setTopPicks(topPicksResult.properties || []);
+                const topPicksProps = topPicksResult.properties || [];
+                console.log('Top picks loaded:', topPicksProps.length);
+                setTopPicks(topPicksProps);
             } catch (error) {
                 console.error('Error loading properties:', error);
                 // Set empty arrays on error
@@ -197,12 +206,9 @@ const HomeContent = () => {
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     <span className="font-semibold text-secondary">{question}</span>
-                    <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        transition={{ duration: 0.2 }}
-                    >
+                    <div className={`transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}>
                         {isOpen ? <ChevronUp className="text-primary" /> : <ChevronDown className="text-gray-400" />}
-                    </motion.div>
+                    </div>
                 </button>
                 {isOpen && (
                     <div className="px-6 py-4 bg-gray-50 text-gray-600 text-sm border-t border-gray-100">
@@ -279,26 +285,21 @@ const HomeContent = () => {
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10 pt-24 md:pt-34 max-w-7xl">
-                    <motion.div
-                        className="max-w-3xl"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                    >
-                        <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6">
+                    <div className="max-w-3xl">
+                        <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-6 animate-fade-in-up">
                             <span className="text-accent text-sm font-bold uppercase tracking-widest">Dubai's Premier Real Estate Partner</span>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-display text-white mb-6 leading-[1.1]">
+                        <h1 className="text-5xl md:text-7xl font-display text-white mb-6 leading-[1.1] animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
                             Find Your Perfect <br />
                             <span className="text-primary">Property in Dubai</span>
                         </h1>
 
-                        <p className="text-gray-300 text-lg md:text-xl mb-8 md:mb-10 max-w-2xl leading-relaxed">
+                        <p className="text-gray-300 text-lg md:text-xl mb-8 md:mb-10 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
                             Discover exceptional investment opportunities with <span className="text-primary">high ROI potential</span>, zero property tax, and access to world-class developments from trusted developers.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 mb-10 md:mb-16">
+                        <div className="flex flex-col sm:flex-row gap-4 mb-10 md:mb-16 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                             <Link href="/properties" className="bg-white hover:bg-primary text-black hover:text-white font-bold py-4 px-8 rounded-full transition-all duration-300 shadow-lg shadow-white/10 text-center flex items-center justify-center">
                                 Get Property Options
                             </Link>
@@ -308,7 +309,7 @@ const HomeContent = () => {
                             </a>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-8 border-t border-white/10">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 py-8 border-t border-white/10 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                             {stats.map((stat, i) => (
                                 <div key={i}>
                                     <p className="text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</p>
@@ -316,69 +317,46 @@ const HomeContent = () => {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
             {/* 2. Why Invest */}
-            <motion.section
-                className="py-24 bg-white"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-                    <motion.div
-                        className="text-center mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-16">
                         <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Investment Benefits</span>
                         <h2 className="text-4xl font-display font-medium text-secondary mb-6">Why Invest in Dubai</h2>
                         <p className="text-gray-text max-w-2xl mx-auto">
                             Dubai offers unparalleled opportunities for property investors with world-class infrastructure and investor-friendly policies.
                         </p>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-4 gap-8"
-                        {...staggerContainer}
-                    >
+                    <AnimatedContainer className="grid grid-cols-1 md:grid-cols-4 gap-8">
                         {benefits.map((benefit, i) => (
-                            <motion.div
+                            <AnimatedItem
                                 key={i}
-                                className="p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl hover:border-primary/20 transition-all duration-300"
-                                variants={staggerItem}
-                                {...hoverLift}
+                                className="p-8 border border-gray-100 rounded-2xl bg-white hover:shadow-xl hover:border-primary/20 transition-all duration-300 hover-lift"
                             >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl mb-6 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
                                     {benefit.icon}
                                 </div>
                                 <h3 className="text-xl font-display font-semibold text-secondary mb-3">{benefit.title}</h3>
                                 <p className="text-sm text-gray-500 leading-relaxed">{benefit.description}</p>
-                            </motion.div>
+                            </AnimatedItem>
                         ))}
-                    </motion.div>
+                    </AnimatedContainer>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 3. Most Recent Launches */}
-            <motion.section
-                className="py-24 bg-gray-50"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="py-24 bg-gray-50">
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-                    <motion.div
-                        className="text-center mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-16">
                         <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">New Opportunities</span>
                         <h2 className="text-4xl font-display font-medium text-secondary mb-6">Most Recent Launches</h2>
                         <p className="text-gray-text">Be among the first to access Dubai's newest developments with exclusive launch prices.</p>
-                    </motion.div>
+                    </div>
 
                     {isLoadingProperties ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -393,16 +371,11 @@ const HomeContent = () => {
                             ))}
                         </div>
                     ) : recentLaunches.length > 0 ? (
-                        <motion.div
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-                            {...staggerContainer}
-                        >
+                        <AnimatedContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {recentLaunches.map((item) => (
-                                <motion.div
+                                <AnimatedItem
                                     key={item.id}
-                                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300"
-                                    variants={staggerItem}
-                                    {...hoverLift}
+                                    className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300 hover-lift"
                                 >
                                     <div className="h-64 relative overflow-hidden">
                                         <img
@@ -443,16 +416,16 @@ const HomeContent = () => {
                                             Inquire
                                         </Link>
                                     </div>
-                                </motion.div>
+                                </AnimatedItem>
                             ))}
-                        </motion.div>
+                        </AnimatedContainer>
                     ) : (
                         <div className="text-center py-12 text-gray-500">
                             <p>No recent launches available at the moment.</p>
                         </div>
                     )}
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 4. Browse Properties (Collections) */}
             {/* <motion.section
@@ -511,22 +484,13 @@ const HomeContent = () => {
                         })}
                     </motion.div>
                 </div>
-            </motion.section> */}
+            </AnimatedSection> */}
 
             {/* 5. Explore by Developer */}
-            <motion.section
-                className="bg-white pt-20"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="bg-white pt-20">
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
                     {/* Top Header & Logos */}
-                    <motion.div
-                        className="text-center mb-12"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-12">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Explore by Developer</span>
                         <h2 className="text-3xl md:text-5xl font-display text-secondary mb-12">Explore Properties by Trusted Developers</h2>
 
@@ -548,7 +512,7 @@ const HomeContent = () => {
                                 </div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
 
                 {/* Map Section */}
@@ -565,25 +529,16 @@ const HomeContent = () => {
                         />
                     </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 6. Handpicked Selection (Dark) */}
-            <motion.section
-                className="py-24 bg-secondary text-white"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="py-24 bg-secondary text-white">
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-                    <motion.div
-                        className="text-center mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-16">
                         <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Handpicked Selection</span>
                         <h2 className="text-4xl font-display font-medium mb-6">Our Top Picks</h2>
                         <p className="text-gray-400">Premium developments personally curated by our experts for exceptional value and lifestyle.</p>
-                    </motion.div>
+                    </div>
 
                     {isLoadingProperties ? (
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -598,16 +553,11 @@ const HomeContent = () => {
                             ))}
                         </div>
                     ) : topPicks.length > 0 ? (
-                        <motion.div
-                            className="grid grid-cols-1 md:grid-cols-3 gap-8"
-                            {...staggerContainer}
-                        >
+                        <AnimatedContainer className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             {topPicks.map((item) => (
-                                <motion.div
+                                <AnimatedItem
                                     key={item.id}
-                                    className="bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-primary/50 transition-colors"
-                                    variants={staggerItem}
-                                    {...hoverLift}
+                                    className="bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-primary/50 transition-colors hover-lift"
                                 >
                                     <div className="h-64 relative">
                                         <img
@@ -649,31 +599,22 @@ const HomeContent = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                </motion.div>
+                                </AnimatedItem>
                             ))}
-                        </motion.div>
+                        </AnimatedContainer>
                     ) : (
                         <div className="text-center py-12 text-gray-400">
                             <p>No top picks available at the moment.</p>
                         </div>
                     )}
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 7. Market Insights */}
-            <motion.section
-                className="py-24 bg-white"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 md:px-6 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-                        <motion.div
-                            className="lg:w-1/2"
-                            {...fadeInUp}
-                        >
+                        <div className="lg:w-1/2">
                             <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Market Insights</span>
                             <h2 className="text-4xl lg:text-5xl font-display font-medium text-secondary mb-6 leading-tight">Dubai's Real Estate Momentum</h2>
                             <p className="text-gray-600 mb-6 leading-relaxed">
@@ -695,20 +636,12 @@ const HomeContent = () => {
                                     <p className="text-xs text-gray-500">From 30+ countries worldwide</p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            className="lg:w-1/2 w-full"
-                            {...fadeInUp}
-                        >
-                            <motion.div
-                                className="grid grid-cols-1 sm:grid-cols-2 gap-6"
-                                {...staggerContainer}
-                            >
-                                <motion.div
-                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                                    variants={staggerItem}
-                                    {...hoverLift}
+                        <div className="lg:w-1/2 w-full">
+                            <AnimatedContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <AnimatedItem
+                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover-lift"
                                 >
                                     <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center text-primary mb-6">
                                         <TrendingUp size={20} />
@@ -716,11 +649,9 @@ const HomeContent = () => {
                                     <h4 className="text-4xl font-bold text-secondary mb-1">27%</h4>
                                     <p className="font-bold text-secondary text-sm mb-1">Property Value Growth</p>
                                     <p className="text-xs text-gray-400">Average annual appreciation</p>
-                                </motion.div>
-                                <motion.div
-                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                                    variants={staggerItem}
-                                    {...hoverLift}
+                                </AnimatedItem>
+                                <AnimatedItem
+                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover-lift"
                                 >
                                     <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center text-primary mb-6">
                                         <Users size={20} />
@@ -728,11 +659,9 @@ const HomeContent = () => {
                                     <h4 className="text-4xl font-bold text-secondary mb-1">3.5M</h4>
                                     <p className="font-bold text-secondary text-sm mb-1">Population Growth</p>
                                     <p className="text-xs text-gray-400">Expected by 2040</p>
-                                </motion.div>
-                                <motion.div
-                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                                    variants={staggerItem}
-                                    {...hoverLift}
+                                </AnimatedItem>
+                                <AnimatedItem
+                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover-lift"
                                 >
                                     <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center text-primary mb-6">
                                         <Building2 size={20} />
@@ -740,11 +669,9 @@ const HomeContent = () => {
                                     <h4 className="text-4xl font-bold text-secondary mb-1">$82B</h4>
                                     <p className="font-bold text-secondary text-sm mb-1">Transactions 2023</p>
                                     <p className="text-xs text-gray-400">Record-breaking year</p>
-                                </motion.div>
-                                <motion.div
-                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all"
-                                    variants={staggerItem}
-                                    {...hoverLift}
+                                </AnimatedItem>
+                                <AnimatedItem
+                                    className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover-lift"
                                 >
                                     <div className="w-10 h-10 bg-gray-50 rounded-lg flex items-center justify-center text-primary mb-6">
                                         <Globe size={20} />
@@ -752,34 +679,22 @@ const HomeContent = () => {
                                     <h4 className="text-4xl font-bold text-secondary mb-1">200+</h4>
                                     <p className="font-bold text-secondary text-sm mb-1">Nationalities</p>
                                     <p className="text-xs text-gray-400">Diverse investor base</p>
-                                </motion.div>
-                            </motion.div>
-                        </motion.div>
+                                </AnimatedItem>
+                            </AnimatedContainer>
+                        </div>
                     </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 7. Testimonials (Slider) */}
-            <motion.section
-                className="py-24 bg-white"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <motion.div
-                        className="text-center mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Testimonials</span>
                         <h2 className="text-4xl md:text-5xl font-display text-secondary">Happy Clients</h2>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        className="max-w-4xl mx-auto relative"
-                        {...fadeInOnScroll}
-                    >
+                    <div className="max-w-4xl mx-auto relative animate-on-scroll fade-in">
                         {/* Slider Content */}
                         <div
                             className="bg-[#F9F9F9] p-8 md:p-12 rounded-2xl shadow-sm text-center relative overflow-hidden"
@@ -843,27 +758,18 @@ const HomeContent = () => {
                                 <ChevronRight size={20} />
                             </button>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 9. FAQ */}
-            <motion.section
-                className="py-24 bg-white"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-                    <motion.div
-                        className="text-center mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-16">
                         <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Got Questions?</span>
                         <h2 className="text-4xl font-display font-medium text-secondary mb-6">Frequently Asked Questions</h2>
                         <p className="text-gray-text">Everything you need to know about investing in Dubai real estate</p>
-                    </motion.div>
+                    </div>
 
                     <div className="space-y-4">
                         {faqs.map((item, i) => (
@@ -871,33 +777,20 @@ const HomeContent = () => {
                         ))}
                     </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 10. Contact Us Form */}
-            <motion.section
-                id="contact"
-                className="py-24 bg-[#F9F7F2]"
-                initial={scrollReveal.initial}
-                whileInView={scrollReveal.whileInView}
-                viewport={scrollReveal.viewport}
-                transition={scrollReveal.transition}
-            >
+            <AnimatedSection id="contact" className="py-24 bg-[#F9F7F2]">
                 <div className="container mx-auto px-4 md:px-6 max-w-4xl">
-                    <motion.div
-                        className="text-center mb-12"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-12">
                         <span className="text-primary font-bold uppercase tracking-widest text-xs mb-2 block">Get in Touch</span>
                         <h2 className="text-4xl font-display font-medium text-secondary mb-6">Contact Our Experts</h2>
                         <p className="text-gray-text max-w-2xl mx-auto">
                             Ready to start your Dubai real estate journey? Fill out the form below and our team will get back to you shortly.
                         </p>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100"
-                        {...fadeInUp}
-                    >
+                    <div className="bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100">
                         <form onSubmit={handleContactFormSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -1006,9 +899,9 @@ const HomeContent = () => {
                                 </button>
                             </div>
                         </form>
-                    </motion.div>
+                    </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
 
 

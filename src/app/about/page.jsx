@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import {
     ShieldCheck,
     FileText,
@@ -23,9 +22,13 @@ import {
     ChevronDown
 } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import { fadeInUp, scrollReveal, staggerContainer, staggerItem, fadeInOnScroll } from '@/utils/animations';
+import AnimatedSection from '@/components/AnimatedSection';
+import AnimatedContainer from '@/components/AnimatedContainer';
+import AnimatedItem from '@/components/AnimatedItem';
+import { useScrollAnimations } from '@/utils/useScrollAnimation';
 
 const About = () => {
+    useScrollAnimations();
     const [activeTestimonial, setActiveTestimonial] = useState(0);
     const [openFaq, setOpenFaq] = useState(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -53,13 +56,13 @@ const About = () => {
         }
     }, []);
 
-    const scrollLeft = () => {
+    const handleScrollLeft = () => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollBy({ left: -320, behavior: 'smooth' });
         }
     };
 
-    const scrollRight = () => {
+    const handleScrollRight = () => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollBy({ left: 320, behavior: 'smooth' });
         }
@@ -77,34 +80,25 @@ const About = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <motion.div 
-                        className="flex items-center justify-center gap-4 mb-4"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6 }}
-                    >
+                    <div className="flex items-center justify-center gap-4 mb-4 animate-fade-in-up">
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em]">EST. 2010 • DUBAI</span>
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
-                    </motion.div>
-                    <motion.h1 
-                        className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.1 }}
+                    </div>
+                    <h1 
+                        className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight animate-fade-in-up"
+                        style={{ animationDelay: '0.1s' }}
                     >
                         A Trusted Name in  <br /> <span className="text-[#C5A365]">Dubai Real Estate</span>
-                    </motion.h1>
-                    <motion.p 
-                        className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
+                    </h1>
+                    <p 
+                        className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10 animate-fade-in-up"
+                        style={{ animationDelay: '0.2s' }}
                     >
                         Expert guidance for investors, homeowners, and global buyers—delivering secure, high-value property opportunities across Dubai.
-                    </motion.p>
+                    </p>
 
-                    <div className="flex flex-col sm:flex-row gap-4 mb-4 justify-center">
+                    <div className="flex flex-col sm:flex-row gap-4 mb-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
                         <Link href="/properties" className="bg-white hover:bg-[#C5A365] text-black font-bold py-4 px-8 rounded-full transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-white/25 hover:shadow-[#C5A365]/25 flex items-center gap-2">
                             Get Property Options <ArrowRight size={16} />
                         </Link>
@@ -117,16 +111,10 @@ const About = () => {
             </section>
 
             {/* 2. Who We Are (Building Trust) */}
-            <motion.section 
-                className="py-24 bg-white"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-start">
-                        <motion.div 
-                            className="flex-1"
-                            {...fadeInUp}
-                        >
+                        <div className="flex-1">
                             <div className="flex items-center gap-4 mb-4">
                                 <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                                 <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest">Who We Are</span>
@@ -149,38 +137,31 @@ const About = () => {
                                     "Real estate is not just about buying property, it's about building long-term value and trust."
                                 </p>
                             </div>
-                        </motion.div>
+                        </div>
 
-                        <motion.div 
-                            className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full"
-                            {...staggerContainer}
-                        >
+                        <AnimatedContainer className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                             {[
                                 { icon: <ShieldCheck size={24} />, title: "RERA Licensed", desc: "Fully compliant & regulated" },
                                 { icon: <FileText size={24} />, title: "DLD Aligned", desc: "Official gov. standards" },
                                 { icon: <Users size={24} />, title: "Global Clients", desc: "Trusted by investors worldwide" },
                                 { icon: <Award size={24} />, title: "Premium Partners", desc: "Top developer connections" }
                             ].map((item, idx) => (
-                                <motion.div 
+                                <AnimatedItem 
                                     key={idx} 
                                     className="bg-[#F9F7F2] p-8 rounded-sm hover:-translate-y-1 transition-transform duration-300"
-                                    variants={staggerItem}
                                 >
                                     <div className="text-[#C5A365] mb-4">{item.icon}</div>
                                     <h4 className="text-secondary font-bold mb-1">{item.title}</h4>
                                     {/* <p className="text-gray-500 text-sm">{item.desc}</p> */}
-                                </motion.div>
+                                </AnimatedItem>
                             ))}
-                        </motion.div>
+                        </AnimatedContainer>
                     </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 3. Our Purpose (Mission & Vision) */}
-            <motion.section 
-                className="py-24 bg-[#1A1A1A] relative overflow-hidden"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-[#1A1A1A] relative overflow-hidden">
                 {/* Decorative circle */}
                 <div className="absolute top-0 left-0 w-[600px] h-[600px] border border-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
 
@@ -193,15 +174,9 @@ const About = () => {
                         </div>
                     </div>
 
-                    <motion.div 
-                        className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
-                        {...staggerContainer}
-                    >
+                    <AnimatedContainer className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                         {/* Mission */}
-                        <motion.div 
-                            className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col"
-                            variants={staggerItem}
-                        >
+                        <AnimatedItem className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col">
                             <div className="w-12 h-12 border border-[#C5A365] flex items-center justify-center text-[#C5A365] mb-6">
                                 <Target size={24} />
                             </div>
@@ -214,13 +189,10 @@ const About = () => {
                             <div className="pt-6 border-t border-white/10 flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-[#666] mt-auto">
                                 <span>Empowerment</span><span>•</span><span>Guidance</span><span>•</span><span>Growth</span>
                             </div>
-                        </motion.div>
+                        </AnimatedItem>
 
                         {/* Vision */}
-                        <motion.div 
-                            className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col"
-                            variants={staggerItem}
-                        >
+                        <AnimatedItem className="bg-[#222] p-10 border border-white/5 relative group hover:border-[#C5A365]/30 transition-colors flex flex-col">
                             <div className="w-12 h-12 border border-[#C5A365] flex items-center justify-center text-[#C5A365] mb-6">
                                 <Compass size={24} />
                             </div>
@@ -231,16 +203,13 @@ const About = () => {
                             <div className="pt-6 border-t border-white/10 flex items-center justify-center gap-4 text-[10px] uppercase tracking-widest text-[#666] mt-auto">
                                 <span>Trust</span><span>•</span><span>Intelligence</span><span>•</span><span>Leadership</span>
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </AnimatedItem>
+                    </AnimatedContainer>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 4. Why Choose Credence */}
-            <motion.section 
-                className="py-24 bg-[#F9F9F9]"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-[#F9F9F9]">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -253,20 +222,16 @@ const About = () => {
                         </h2>
                     </div>
 
-                    <motion.div 
-                        className="grid grid-cols-1 md:grid-cols-2 gap-6"
-                        {...staggerContainer}
-                    >
-                        {[
-                            { icon: <Lightbulb size={20} />, title: "Client-First Approach", desc: "Every recommendation starts with understanding client goals — investment, lifestyle, or long-term growth." },
-                            { icon: <TrendingUp size={20} />, title: "Global & Multilingual Expertise", desc: "Market-savvy professionals with international investor experience, offering seamless support across borders." },
-                            { icon: <Heart size={20} />, title: "End-to-End Real Estate Services", desc: "Sales · Leasing · Investments · Off-Plan · Property Management · Mortgage Assistance · Golden Visa Support · Transaction Process & Documentation." },
-                            { icon: <Building2 size={20} />, title: "Strong Developer Partnerships", desc: "Collaborations with 30+ developers across the UAE, including Dubai's leading names: Emaar · Damac · Nakheel · Sobha · Azizi · and more." }
-                        ].map((item, idx) => (
-                            <motion.div 
+                    <AnimatedContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {[
+                                { icon: <Lightbulb size={20} />, title: "Client-First Approach", desc: "Every recommendation starts with understanding client goals — investment, lifestyle, or long-term growth." },
+                                { icon: <TrendingUp size={20} />, title: "Global & Multilingual Expertise", desc: "Market-savvy professionals with international investor experience, offering seamless support across borders." },
+                                { icon: <Heart size={20} />, title: "End-to-End Real Estate Services", desc: "Sales · Leasing · Investments · Off-Plan · Property Management · Mortgage Assistance · Golden Visa Support · Transaction Process & Documentation." },
+                                { icon: <Building2 size={20} />, title: "Strong Developer Partnerships", desc: "Collaborations with 30+ developers across the UAE, including Dubai's leading names: Emaar · Damac · Nakheel · Sobha · Azizi · and more." }
+                            ].map((item, idx) => (
+                            <AnimatedItem 
                                 key={idx} 
                                 className="bg-white p-8 border border-gray-100 flex flex-col items-start hover:shadow-lg transition-shadow relative overflow-hidden group"
-                                variants={staggerItem}
                             >
                                 <div className="w-10 h-10 border border-gray-200 flex items-center justify-center text-gray-400 mb-6 group-hover:border-[#C5A365] group-hover:text-[#C5A365] transition-colors">
                                     {item.icon}
@@ -274,17 +239,14 @@ const About = () => {
                                 <h4 className="text-xl font-display text-secondary mb-3">{item.title}</h4>
                                 <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
                                 <div className="absolute bottom-4 right-4 w-6 h-6 rounded-full border border-gray-100 group-hover:bg-[#C5A365]/10"></div>
-                            </motion.div>
+                            </AnimatedItem>
                         ))}
-                    </motion.div>
+                    </AnimatedContainer>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 5. Our Team */}
-            <motion.section 
-                className="py-24 bg-white"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -315,7 +277,7 @@ const About = () => {
                         {/* Navigation Buttons */}
                         {canScrollLeft && (
                             <button
-                                onClick={scrollLeft}
+                                onClick={handleScrollLeft}
                                 className="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-200 flex items-center justify-center text-[#C5A365] hover:bg-[#C5A365] hover:text-white transition-all duration-300 hover:scale-110"
                                 aria-label="Scroll left"
                             >
@@ -325,7 +287,7 @@ const About = () => {
                         
                         {canScrollRight && (
                             <button
-                                onClick={scrollRight}
+                                onClick={handleScrollRight}
                                 className="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white shadow-xl border border-gray-200 flex items-center justify-center text-[#C5A365] hover:bg-[#C5A365] hover:text-white transition-all duration-300 hover:scale-110"
                                 aria-label="Scroll right"
                             >
@@ -376,27 +338,18 @@ const About = () => {
                         </div>
                     </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
             {/* 6. Achievements */}
-            <motion.section 
-                className="py-24 bg-[#F9F9F9]"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-[#F9F9F9]">
                 <div className="container mx-auto px-4 max-w-7xl text-center">
-                    <motion.div 
-                        className="flex items-center justify-center gap-4 mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="flex items-center justify-center gap-4 mb-16">
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest">Our Achievements</span>
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
-                    </motion.div>
+                    </div>
 
-                    <motion.div 
-                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 justify-items-center"
-                        {...staggerContainer}
-                    >
+                    <AnimatedContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 justify-items-center">
                         {[
                             { title: "Team Recognition", img: "/assets/awards and team recog/team (1).png" },
                             { title: "Awards & Certifications", img: "/assets/awards and team recog/award.png" },
@@ -404,26 +357,22 @@ const About = () => {
                             { title: "Excellence Award", img: "/assets/awards and team recog/award2.png" },
                             { title: "Team Event", img: "/assets/awards and team recog/team (3).png" },
                             { title: "Industry Recognition", img: "/assets/awards and team recog/awar3.png" }
-                        ].map((item, idx) => (
-                            <motion.div 
+                            ].map((item, idx) => (
+                            <AnimatedItem 
                                 key={idx} 
                                 className="bg-white p-6 border border-[#E5E5E5] hover:border-[#C5A365] transition-colors w-full max-w-sm"
-                                variants={staggerItem}
                             >
                                 <div className="bg-[#F9F7F2] mb-6 overflow-hidden rounded-sm p-4 flex items-center justify-center h-64">
                                     <img src={item.img} alt={item.title} className="w-full h-full object-contain" />
                                 </div>
                                 <h4 className="text-secondary font-bold">{item.title}</h4>
-                            </motion.div>
+                            </AnimatedItem>
                         ))}
-                    </motion.div>
+                    </AnimatedContainer>
                 </div>
-            </motion.section>
+            </AnimatedSection>
             {/* 8. FAQ */}
-            <motion.section 
-                className="py-24 bg-white border-t border-gray-100"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-white border-t border-gray-100">
                 <div className="container mx-auto px-4 md:px-6 max-w-4xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -505,25 +454,16 @@ const About = () => {
                         ))}
                     </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
             {/* 7. Testimonials (Slider) */}
-            <motion.section 
-                className="py-24 bg-white"
-                {...scrollReveal}
-            >
+            <AnimatedSection className="py-24 bg-white">
                 <div className="container mx-auto px-4 max-w-7xl">
-                    <motion.div 
-                        className="text-center mb-16"
-                        {...fadeInUp}
-                    >
+                    <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Testimonials</span>
                         <h2 className="text-4xl md:text-5xl font-display text-secondary">Happy Clients</h2>
-                    </motion.div>
+                    </div>
 
-                    <motion.div 
-                        className="max-w-4xl mx-auto relative"
-                        {...fadeInOnScroll}
-                    >
+                    <div className="max-w-4xl mx-auto relative">
                         {/* Slider Content */}
                         <div className="bg-[#F9F9F9] p-8 md:p-12 rounded-2xl shadow-sm text-center relative overflow-hidden">
                             {/* Quote Icon */}
@@ -537,11 +477,11 @@ const About = () => {
                             {/* Text */}
                             <div className="min-h-[120px] flex items-center justify-center">
                                 <h3 className="text-xl md:text-2xl font-serif italic text-secondary leading-relaxed max-w-2xl mx-auto">
-                                    "{[
+                                    &quot;{[
                                         "The team's knowledge of the luxury market is exceptional. They found me a branded residence that exceeded my expectations.",
                                         "Professional, transparent, and incredibly helpful. They guided me through the entire Golden Visa process seamlessy.",
                                         "I was looking for a high-yield investment, and Credence delivered exactly that. Their market insights are top-notch."
-                                    ][activeTestimonial]}"
+                                    ][activeTestimonial]}&quot;
                                 </h3>
                             </div>
 
@@ -585,9 +525,9 @@ const About = () => {
                                 <ChevronRight size={20} />
                             </button>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
-            </motion.section>
+            </AnimatedSection>
 
 
         </div>
