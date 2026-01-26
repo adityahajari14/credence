@@ -79,19 +79,19 @@ const Guide = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <span 
+                    <span
                         className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em] mb-4 block animate-fade-in-up"
                         style={{ animationDelay: '0s' }}
                     >
                         Credence Realtor
                     </span>
-                    <h1 
+                    <h1
                         className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight animate-fade-in-up"
                         style={{ animationDelay: '0.1s' }}
                     >
                         Dubai Property <br /> <span className="text-[#C5A365]"> Buyers Guide</span>
                     </h1>
-                    <p 
+                    <p
                         className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10 animate-fade-in-up"
                         style={{ animationDelay: '0.2s' }}
                     >
@@ -101,7 +101,7 @@ const Guide = () => {
                         informed decisions.
                     </p>
 
-                    <div 
+                    <div
                         className="flex flex-col sm:flex-row gap-4 mb-4 justify-center animate-fade-in-up"
                         style={{ animationDelay: '0.3s' }}
                     >
@@ -116,7 +116,7 @@ const Guide = () => {
                 </div>
             </section>
             {/* 3. Buying Process Step-by-Step (Timeline) */}
-            <AnimatedSection className="py-24 bg-[#F9F9F9]">
+            <AnimatedSection className="py-24 bg-[#F9F9F9]" id="steps">
                 <div className="container mx-auto px-4 max-w-4xl">
                     <div className="mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">The Process</span>
@@ -140,8 +140,8 @@ const Guide = () => {
                             { num: "05", title: "Transfer at DLD", desc: "Visit the Dubai Land Department or a trustee office to complete the official ownership transfer and pay applicable fees.", icon: <Landmark size={22} /> },
                             { num: "06", title: "Receive Title Deed", desc: "Congratulations! You'll receive your title deed, and the property is officially registered under your name.", icon: <Key size={22} /> }
                         ].map((step, idx) => (
-                            <AnimatedItem 
-                                key={idx} 
+                            <AnimatedItem
+                                key={idx}
                                 className="flex gap-6 md:gap-10 items-start group"
                             >
                                 <div className="w-12 h-12 md:w-16 md:h-16 bg-white rounded-2xl shadow-sm border border-gray-100 flex items-center justify-center shrink-0 relative z-10 group-hover:border-[#C5A365] transition-colors">
@@ -173,7 +173,7 @@ const Guide = () => {
                 </div>
             </AnimatedSection>
             {/* 2. Preparation Section (Before You Begin) */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="preparation">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-start">
                         {/* Left Side: Content & Image */}
@@ -231,8 +231,8 @@ const Guide = () => {
                                     checks: ["Prioritize top 5 requirements", "Be flexible on secondary items", "Consider future needs"]
                                 }
                             ].map((card, idx) => (
-                                <AnimatedItem 
-                                    key={idx} 
+                                <AnimatedItem
+                                    key={idx}
                                     className="bg-[#F9F9F9] p-8 rounded-xl border border-gray-100 flex gap-6 hover:shadow-md transition-all"
                                 >
                                     <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center text-[#C5A365] shrink-0 shadow-sm">
@@ -260,7 +260,7 @@ const Guide = () => {
 
 
             {/* 4. Property Types & Location */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="types">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Finding Your Fit</span>
@@ -277,8 +277,8 @@ const Guide = () => {
                             { title: "Townhouses", icon: <Landmark size={24} />, desc: "Multi-level homes within communities, offering a balance between apartment and villa living." },
                             { title: "Penthouses", icon: <Star size={24} />, desc: "Luxury top-floor residences with premium finishes, views, and exclusive amenities." },
                         ].map((type, idx) => (
-                            <AnimatedItem 
-                                key={idx} 
+                            <AnimatedItem
+                                key={idx}
                                 className="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#C5A365]/30 transition-all group"
                             >
                                 <div className="w-12 h-12 bg-[#F9F7F2] rounded-xl flex items-center justify-center text-[#C5A365] mb-6 group-hover:bg-[#C5A365] group-hover:text-white transition-colors">
@@ -317,8 +317,8 @@ const Guide = () => {
                                     { title: "Accessibility", desc: "Access to metro, major roads, airports, and essential services matters for convenience.", icon: <MapPin size={20} /> },
                                     { title: "Community Type", desc: "Family-oriented, vibrant urban, or quiet residential—choose what fits your lifestyle.", icon: <Users size={20} /> }
                                 ].map((item, idx) => (
-                                    <AnimatedItem 
-                                        key={idx} 
+                                    <AnimatedItem
+                                        key={idx}
                                         className="bg-white p-6 rounded-xl border border-gray-100 flex gap-5 hover:border-[#C5A365] transition-colors"
                                     >
                                         <div className="w-10 h-10 bg-[#F5F5F5] rounded-lg flex items-center justify-center text-gray-600 shrink-0">
@@ -337,7 +337,7 @@ const Guide = () => {
             </AnimatedSection>
 
             {/* 5. FAQs */}
-            <AnimatedSection className="py-24 bg-white border-t border-gray-100">
+            <AnimatedSection className="py-24 bg-white border-t border-gray-100" id="faqs">
                 <div className="container mx-auto px-4 max-w-3xl">
                     <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Common Questions</span>

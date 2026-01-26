@@ -113,25 +113,25 @@ const Blogs = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/40" />
                 </div>
                 <div className="container mx-auto px-4 max-w-7xl relative z-10 text-center pt-32">
-                    <h1 
+                    <h1
                         className="text-5xl md:text-7xl font-display text-white mb-2 animate-fade-in-up"
                         style={{ animationDelay: '0s' }}
                     >
                         Dubai Real Estate
                     </h1>
-                    <h1 
+                    <h1
                         className="text-5xl md:text-7xl font-display text-[#C5A365] mb-8 animate-fade-in-up"
                         style={{ animationDelay: '0.1s' }}
                     >
                         Guide
                     </h1>
-                    <p 
+                    <p
                         className="text-gray-300 text-lg uppercase tracking-widest mb-12 animate-fade-in-up"
                         style={{ animationDelay: '0.2s' }}
                     >
                         Your Complete Handbook to Investing & Living in Dubai
                     </p>
-                    <p 
+                    <p
                         className="text-gray-300 text-lg mb-10 animate-fade-in-up"
                         style={{ animationDelay: '0.3s' }}
                     >
@@ -152,7 +152,7 @@ const Blogs = () => {
             </section>
 
             {/* 2. Market Insight Section */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="market">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row items-center gap-16">
                         <div className="flex-1">
@@ -218,8 +218,8 @@ const Blogs = () => {
 
                     <AnimatedContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {advantageCards.map((card, idx) => (
-                            <AnimatedItem 
-                                key={idx} 
+                            <AnimatedItem
+                                key={idx}
                                 className="bg-[#222] p-8 rounded hover:bg-[#2A2A2A] transition-colors border border-white/5 group"
                             >
                                 <div className="w-10 h-10 bg-[#333] rounded flex items-center justify-center text-[#C5A365] mb-6 group-hover:bg-[#C5A365] group-hover:text-black transition-colors">
@@ -234,7 +234,7 @@ const Blogs = () => {
             </AnimatedSection>
 
             {/* 4. Communities Section */}
-            <AnimatedSection className="py-24 bg-[#F9F9F9]">
+            <AnimatedSection className="py-24 bg-[#F9F9F9]" id="areas">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Section Two</span>
@@ -261,13 +261,13 @@ const Blogs = () => {
                     </div>
 
                     {/* Cards */}
-                    <AnimatedContainer 
+                    <AnimatedContainer
                         className="grid grid-cols-1 md:grid-cols-3 gap-8"
                         key={activeTab}
                     >
                         {communities[activeTab].map((comm, idx) => (
-                            <AnimatedItem 
-                                key={idx} 
+                            <AnimatedItem
+                                key={idx}
                                 className="bg-white p-8 border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
                             >
                                 <div className="flex justify-between items-start mb-4">
@@ -296,7 +296,7 @@ const Blogs = () => {
             </AnimatedSection>
 
             {/* 5. FAQ Section */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="faqs">
                 <div className="container mx-auto px-4 max-w-4xl">
                     <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Section Three</span>

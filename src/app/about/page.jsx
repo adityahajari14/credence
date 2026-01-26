@@ -85,13 +85,13 @@ const About = () => {
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-[0.3em]">EST. 2010 • DUBAI</span>
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
                     </div>
-                    <h1 
+                    <h1
                         className="text-5xl md:text-7xl font-display text-white mb-6 leading-tight animate-fade-in-up"
                         style={{ animationDelay: '0.1s' }}
                     >
                         A Trusted Name in  <br /> <span className="text-[#C5A365]">Dubai Real Estate</span>
                     </h1>
-                    <p 
+                    <p
                         className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed font-light mb-10 animate-fade-in-up"
                         style={{ animationDelay: '0.2s' }}
                     >
@@ -111,7 +111,7 @@ const About = () => {
             </section>
 
             {/* 2. Who We Are (Building Trust) */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="who-we-are">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="flex flex-col lg:flex-row gap-16 items-start">
                         <div className="flex-1">
@@ -146,8 +146,8 @@ const About = () => {
                                 { icon: <Users size={24} />, title: "Global Clients", desc: "Trusted by investors worldwide" },
                                 { icon: <Award size={24} />, title: "Premium Partners", desc: "Top developer connections" }
                             ].map((item, idx) => (
-                                <AnimatedItem 
-                                    key={idx} 
+                                <AnimatedItem
+                                    key={idx}
                                     className="bg-[#F9F7F2] p-8 rounded-sm hover:-translate-y-1 transition-transform duration-300"
                                 >
                                     <div className="text-[#C5A365] mb-4">{item.icon}</div>
@@ -161,7 +161,7 @@ const About = () => {
             </AnimatedSection>
 
             {/* 3. Our Purpose (Mission & Vision) */}
-            <AnimatedSection className="py-24 bg-[#1A1A1A] relative overflow-hidden">
+            <AnimatedSection className="py-24 bg-[#1A1A1A] relative overflow-hidden" id="mission">
                 {/* Decorative circle */}
                 <div className="absolute top-0 left-0 w-[600px] h-[600px] border border-white/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
 
@@ -209,7 +209,7 @@ const About = () => {
             </AnimatedSection>
 
             {/* 4. Why Choose Credence */}
-            <AnimatedSection className="py-24 bg-[#F9F9F9]">
+            <AnimatedSection className="py-24 bg-[#F9F9F9]" id="choose-us">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -223,14 +223,14 @@ const About = () => {
                     </div>
 
                     <AnimatedContainer className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {[
-                                { icon: <Lightbulb size={20} />, title: "Client-First Approach", desc: "Every recommendation starts with understanding client goals — investment, lifestyle, or long-term growth." },
-                                { icon: <TrendingUp size={20} />, title: "Global & Multilingual Expertise", desc: "Market-savvy professionals with international investor experience, offering seamless support across borders." },
-                                { icon: <Heart size={20} />, title: "End-to-End Real Estate Services", desc: "Sales · Leasing · Investments · Off-Plan · Property Management · Mortgage Assistance · Golden Visa Support · Transaction Process & Documentation." },
-                                { icon: <Building2 size={20} />, title: "Strong Developer Partnerships", desc: "Collaborations with 30+ developers across the UAE, including Dubai's leading names: Emaar · Damac · Nakheel · Sobha · Azizi · and more." }
-                            ].map((item, idx) => (
-                            <AnimatedItem 
-                                key={idx} 
+                        {[
+                            { icon: <Lightbulb size={20} />, title: "Client-First Approach", desc: "Every recommendation starts with understanding client goals — investment, lifestyle, or long-term growth." },
+                            { icon: <TrendingUp size={20} />, title: "Global & Multilingual Expertise", desc: "Market-savvy professionals with international investor experience, offering seamless support across borders." },
+                            { icon: <Heart size={20} />, title: "End-to-End Real Estate Services", desc: "Sales · Leasing · Investments · Off-Plan · Property Management · Mortgage Assistance · Golden Visa Support · Transaction Process & Documentation." },
+                            { icon: <Building2 size={20} />, title: "Strong Developer Partnerships", desc: "Collaborations with 30+ developers across the UAE, including Dubai's leading names: Emaar · Damac · Nakheel · Sobha · Azizi · and more." }
+                        ].map((item, idx) => (
+                            <AnimatedItem
+                                key={idx}
                                 className="bg-white p-8 border border-gray-100 flex flex-col items-start hover:shadow-lg transition-shadow relative overflow-hidden group"
                             >
                                 <div className="w-10 h-10 border border-gray-200 flex items-center justify-center text-gray-400 mb-6 group-hover:border-[#C5A365] group-hover:text-[#C5A365] transition-colors">
@@ -246,7 +246,7 @@ const About = () => {
             </AnimatedSection>
 
             {/* 5. Our Team */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="team">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -268,7 +268,7 @@ const About = () => {
                         {canScrollLeft && (
                             <div className="absolute left-4 top-0 bottom-0 w-24 bg-gradient-to-r from-white via-white/95 to-transparent z-10 pointer-events-none"></div>
                         )}
-                        
+
                         {/* Right fade gradient */}
                         {canScrollRight && (
                             <div className="absolute right-4 top-0 bottom-0 w-24 bg-gradient-to-l from-white via-white/95 to-transparent z-10 pointer-events-none"></div>
@@ -284,7 +284,7 @@ const About = () => {
                                 <ChevronLeft size={24} />
                             </button>
                         )}
-                        
+
                         {canScrollRight && (
                             <button
                                 onClick={handleScrollRight}
@@ -295,7 +295,7 @@ const About = () => {
                             </button>
                         )}
 
-                        <div 
+                        <div
                             ref={scrollContainerRef}
                             className="overflow-x-auto pb-4 scroll-smooth scrollbar-hide"
                             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
@@ -307,30 +307,51 @@ const About = () => {
                             `}</style>
                             <div className="flex gap-6 md:gap-8 min-w-max py-2">
                                 {[
-                                    { name: "Ibrahim Bounil", img: "/team/ibrahim-bounil.jpeg" },
-                                    { name: "Esther Hrahsel", img: "/team/esther-hrahsel.jpeg" },
-                                    { name: "Albin PR", img: "/team/albin-pr.jpeg" },
-                                    { name: "Sadia Shaukat", img: "/team/sadia-shaukat.jpeg" },
-                                    { name: "Mai Sari Kozal", img: "/team/mai-sari-kozal.jpeg" },
-                                    { name: "Anita Sisodiya", img: "/team/anita-sisodiya.jpeg" },
-                                    { name: "Naresh Singh", img: "/team/naresh-singh.jpeg" },
-                                    { name: "Muhammed Ali", img: "/team/muhammed-ali.jpeg" },
-                                    { name: "Sameer Mohammad", img: "/team/sameer-mohammad.jpeg" },
-                                    { name: "Mukesh Kumar", img: "/team/mukesh-kumar.jpeg" },
-                                    { name: "Prasad Nag", img: "/team/prasad-nag.jpeg" },
-                                    { name: "Amjad Hussain", img: "/team/amjad-hussain.jpeg" },
-                                    { name: "Pratibha Verma", img: "/team/pratibha-verma.jpeg" },
-                                    { name: "Rohit Shrivastava", img: "/team/rohit-shrivastava.jpeg" },
-                                    { name: "Rahul Kakoti", img: "/team/rahul-kakoti.jpeg" },
-                                    { name: "Neelam Rajput", img: "/team/neelam-rajput.jpeg" },
-                                    { name: "Kanchan Nagpure", img: "/team/kanchan-nagpure.jpeg" }
+                                    { name: "Ibrahim Bounil", img: "/team/ibrahim-bounil.jpeg", phone: "971588919223" },
+                                    { name: "Esther Hrahsel", img: "/team/esther-hrahsel.jpeg", phone: "971588919223" },
+                                    { name: "Albin PR", img: "/team/albin-pr.jpeg", phone: "971588919223" },
+                                    { name: "Sadia Shaukat", img: "/team/sadia-shaukat.jpeg", phone: "971588919223" },
+                                    { name: "Mai Sari Kozal", img: "/team/mai-sari-kozal.jpeg", phone: "971588919223" },
+                                    { name: "Anita Sisodiya", img: "/team/anita-sisodiya.jpeg", phone: "971588919223" },
+                                    { name: "Naresh Singh", img: "/team/naresh-singh.jpeg", phone: "971588919223" },
+                                    { name: "Muhammed Ali", img: "/team/muhammed-ali.jpeg", phone: "971588919223" },
+                                    { name: "Sameer Mohammad", img: "/team/sameer-mohammad.jpeg", phone: "971588919223" },
+                                    { name: "Mukesh Kumar", img: "/team/mukesh-kumar.jpeg", phone: "971588919223" },
+                                    { name: "Prasad Nag", img: "/team/prasad-nag.jpeg", phone: "971588919223" },
+                                    { name: "Amjad Hussain", img: "/team/amjad-hussain.jpeg", phone: "971588919223" },
+                                    { name: "Pratibha Verma", img: "/team/pratibha-verma.jpeg", phone: "971588919223" },
+                                    { name: "Rohit Shrivastava", img: "/team/rohit-shrivastava.jpeg", phone: "971588919223" },
+                                    { name: "Rahul Kakoti", img: "/team/rahul-kakoti.jpeg", phone: "971588919223" },
+                                    { name: "Neelam Rajput", img: "/team/neelam-rajput.jpeg", phone: "971588919223" },
+                                    { name: "Kanchan Nagpure", img: "/team/kanchan-nagpure.jpeg", phone: "971588919223" }
                                 ].map((member, idx) => (
                                     <div key={idx} className="group cursor-pointer flex-shrink-0 w-64 md:w-72">
-                                        <div className="overflow-hidden mb-6 bg-[#F9F7F2] rounded-sm p-0 aspect-[3/4]">
+                                        <div className="overflow-hidden mb-6 bg-[#F9F7F2] rounded-sm p-0 aspect-[3/4] relative">
                                             <img src={member.img} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                                            {/* Hover WhatsApp Button */}
+                                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                                <a
+                                                    href={`https://wa.me/${member.phone}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    className="bg-[#25D366] text-white px-6 py-3 rounded-full font-bold flex items-center gap-2 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-[#20b85a] shadow-lg"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
+                                                    <MessageCircle size={20} /> Chat Now
+                                                </a>
+                                            </div>
                                         </div>
                                         <div className="text-center">
-                                            <h4 className="text-xl font-bold text-secondary">{member.name}</h4>
+                                            <h4 className="text-xl font-bold text-secondary mb-2">{member.name}</h4>
+                                            <a
+                                                href={`https://wa.me/${member.phone}`}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-[#25D366] transition-colors"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
+                                                <MessageCircle size={14} /> Connect on WhatsApp
+                                            </a>
                                         </div>
                                     </div>
                                 ))}
@@ -341,7 +362,7 @@ const About = () => {
             </AnimatedSection>
 
             {/* 6. Achievements */}
-            <AnimatedSection className="py-24 bg-[#F9F9F9]">
+            <AnimatedSection className="py-24 bg-[#F9F9F9]" id="achievements">
                 <div className="container mx-auto px-4 max-w-7xl text-center">
                     <div className="flex items-center justify-center gap-4 mb-16">
                         <div className="h-[1px] w-12 bg-[#C5A365]"></div>
@@ -357,9 +378,9 @@ const About = () => {
                             { title: "Excellence Award", img: "/assets/awards and team recog/award2.png" },
                             { title: "Team Event", img: "/assets/awards and team recog/team (3).png" },
                             { title: "Industry Recognition", img: "/assets/awards and team recog/awar3.png" }
-                            ].map((item, idx) => (
-                            <AnimatedItem 
-                                key={idx} 
+                        ].map((item, idx) => (
+                            <AnimatedItem
+                                key={idx}
                                 className="bg-white p-6 border border-[#E5E5E5] hover:border-[#C5A365] transition-colors w-full max-w-sm"
                             >
                                 <div className="bg-[#F9F7F2] mb-6 overflow-hidden rounded-sm p-4 flex items-center justify-center h-64">
@@ -372,7 +393,7 @@ const About = () => {
                 </div>
             </AnimatedSection>
             {/* 8. FAQ */}
-            <AnimatedSection className="py-24 bg-white border-t border-gray-100">
+            <AnimatedSection className="py-24 bg-white border-t border-gray-100" id="faqs">
                 <div className="container mx-auto px-4 md:px-6 max-w-4xl">
                     <div className="text-center mb-16">
                         <div className="flex items-center justify-center gap-4 mb-16">
@@ -456,7 +477,7 @@ const About = () => {
                 </div>
             </AnimatedSection>
             {/* 7. Testimonials (Slider) */}
-            <AnimatedSection className="py-24 bg-white">
+            <AnimatedSection className="py-24 bg-white" id="testimonials">
                 <div className="container mx-auto px-4 max-w-7xl">
                     <div className="text-center mb-16">
                         <span className="text-[#C5A365] text-xs font-bold uppercase tracking-widest mb-4 block">Testimonials</span>

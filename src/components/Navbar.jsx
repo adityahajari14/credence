@@ -1,23 +1,103 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState(null); // For Desktop
+    const [expandedMobileItem, setExpandedMobileItem] = useState(null); // For Mobile
     const pathname = usePathname();
 
-    // Navigation Items
+    // Navigation Items with Sub-links (mirrored from Footer)
     const navItems = [
-        { name: "Properties", path: "/properties" },
-        { name: "Developers", path: "/developers" },
-        { name: "Services", path: "/services" },
-        { name: "Blogs", path: "/blogs" },
-        { name: "Guide", path: "/guide" },
-        { name: "About Us", path: "/about" }
+        {
+            name: "Properties",
+            path: "/properties",
+            subItems: [
+                { name: "Off-Plan Properties", path: "/properties" },
+                { name: "Affordable Properties", path: "/properties" },
+                { name: "Luxury Residences", path: "/properties" },
+                { name: "Waterfront Properties", path: "/properties" },
+                { name: "Featured Listings", path: "/properties" },
+                { name: "Why Buy in Dubai", path: "/blogs#market" },
+                { name: "Property FAQs", path: "/guide#faqs" }
+            ]
+        },
+        {
+            name: "Developers",
+            path: "/developers",
+            subItems: [
+                { name: "Emaar Properties", path: "/properties?developer=EMAAR" },
+                { name: "Damac Properties", path: "/properties?developer=DAMAC" },
+                { name: "Nakheel", path: "/properties?developer=NAKHEEL" },
+                { name: "Sobha Realty", path: "/properties?developer=SOBHA REALTY" },
+                { name: "Meraas", path: "/properties?developer=MERAAS" },
+                { name: "Dubai Properties", path: "/properties?developer=DUBAI PROPERTIES" },
+                { name: "Aldar", path: "/properties?developer=ALDAR" }
+            ]
+        },
+        {
+            name: "Services",
+            path: "/services",
+            subItems: [
+                { name: "Free Consultation", path: "/services" },
+                { name: "Buy Property", path: "/services" },
+                { name: "Sell Property", path: "/services#selling" },
+                { name: "Leasing Services", path: "/services#leasing" },
+                { name: "Mortgage Assistance", path: "/services#mortgage" },
+                { name: "Golden Visa", path: "/services#golden-visa" },
+                { name: "Crypto Property", path: "/services#crypto" }
+            ]
+        },
+        {
+            name: "Blogs",
+            path: "/blogs",
+            subItems: [
+                { name: "Why Invest in Dubai", path: "/blogs#market" },
+                { name: "Dubai Area Guide", path: "/blogs#areas" },
+                { name: "Premium Locations", path: "/blogs#areas" },
+                { name: "Waterfront Communities", path: "/blogs#areas" },
+                { name: "Family-Friendly Areas", path: "/blogs#areas" },
+                { name: "High-ROI Areas", path: "/blogs#areas" },
+                { name: "Buyer's Guide", path: "/guide" },
+                { name: "Dubai Property FAQs", path: "/guide#faqs" }
+            ]
+        },
+        {
+            name: "Guide",
+            path: "/guide",
+            subItems: [
+                { name: "Step-by-Step Guide", path: "/guide#steps" },
+                { name: "Before buying", path: "/guide#preparation" },
+                { name: "Finding Your Fit", path: "/guide#types" },
+                { name: "FAQs", path: "/guide#faqs" }
+            ]
+        },
+        {
+            name: "About Us",
+            path: "/about",
+            subItems: [
+                { name: "Who We Are", path: "/about#who-we-are" },
+                { name: "Our Mission & Vision", path: "/about#mission" },
+                { name: "Why Choose Credence", path: "/about#choose-us" },
+                { name: "Our Team", path: "/about#team" },
+                { name: "Achievements", path: "/about#achievements" },
+                { name: "FAQs", path: "/about#faqs" },
+                { name: "Client Testimonials", path: "/about#testimonials" }
+            ]
+        }
     ];
+
+    const toggleMobileSubmenu = (name) => {
+        if (expandedMobileItem === name) {
+            setExpandedMobileItem(null);
+        } else {
+            setExpandedMobileItem(name);
+        }
+    };
 
     return (
         <nav className="fixed w-full z-50 bg-black/80 backdrop-blur-md border-b border-white/10 animate-fade-in-down">
@@ -31,18 +111,49 @@ const Navbar = () => {
                     </div>
 
                     {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center space-x-8">
+                    <div className="hidden lg:flex items-center space-x-6">
                         {navItems.map((item) => (
-                            <Link
+                            <div
                                 key={item.name}
-                                href={item.path}
-                                className={`text-sm uppercase tracking-wider font-medium transition-colors ${pathname === item.path
-                                    ? 'text-primary'
-                                    : 'text-gray-300 hover:text-primary'
-                                    }`}
+                                className="relative group"
+                                onMouseEnter={() => setActiveDropdown(item.name)}
+                                onMouseLeave={() => setActiveDropdown(null)}
                             >
-                                {item.name}
-                            </Link>
+                                <Link
+                                    href={item.path}
+                                    className={`flex items-center gap-1 text-sm uppercase tracking-wider font-medium transition-colors py-8 ${pathname === item.path || pathname.startsWith(item.path + '/')
+                                        ? 'text-primary'
+                                        : 'text-gray-300 group-hover:text-primary'
+                                        }`}
+                                >
+                                    {item.name}
+                                    {item.subItems && (
+                                        <ChevronDown size={14} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                                    )}
+                                </Link>
+
+                                {/* Dropdown */}
+                                {item.subItems && (
+                                    <div
+                                        className={`absolute left-0 top-full w-64 bg-black border border-white/10 shadow-xl rounded-b-md overflow-hidden transition-all duration-300 origin-top ${activeDropdown === item.name
+                                            ? 'opacity-100 scale-y-100 visible'
+                                            : 'opacity-0 scale-y-0 invisible'
+                                            }`}
+                                    >
+                                        <div className="py-2">
+                                            {item.subItems.map((subItem, index) => (
+                                                <Link
+                                                    key={index}
+                                                    href={subItem.path}
+                                                    className="block px-6 py-3 text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
+                                                >
+                                                    {subItem.name}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         ))}
                     </div>
 
@@ -74,27 +185,58 @@ const Navbar = () => {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="lg:hidden bg-black border-t border-white/10 overflow-hidden transition-all duration-300">
+                <div className="lg:hidden bg-black border-t border-white/10 overflow-hidden transition-all duration-300 max-h-[85vh] overflow-y-auto">
                     <div className="px-4 pt-4 pb-6 space-y-2">
                         {navItems.map((item, index) => (
                             <div
                                 key={item.name}
                                 className="animate-fade-in-up"
-                                style={{ animationDelay: `${index * 0.1}s` }}
+                                style={{ animationDelay: `${index * 0.05}s` }}
                             >
-                                <Link
-                                    href={item.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className={`block px-3 py-2 text-base font-medium rounded-md transition-colors ${pathname === item.path
-                                        ? 'text-primary bg-white/5'
-                                        : 'text-gray-300 hover:text-primary hover:bg-white/5'
-                                        }`}
-                                >
-                                    {item.name}
-                                </Link>
+                                <div className="flex flex-col">
+                                    <div className="flex items-center justify-between">
+                                        <Link
+                                            href={item.path}
+                                            onClick={() => !item.subItems && setIsOpen(false)}
+                                            className={`flex-1 px-3 py-3 text-base font-medium rounded-md transition-colors ${pathname === item.path
+                                                ? 'text-primary bg-white/5'
+                                                : 'text-gray-300 hover:text-primary hover:bg-white/5'
+                                                }`}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                        {item.subItems && (
+                                            <button
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                    toggleMobileSubmenu(item.name);
+                                                }}
+                                                className="p-3 text-gray-400 hover:text-white"
+                                            >
+                                                <ChevronDown size={18} className={`transition-transform duration-300 ${expandedMobileItem === item.name ? 'rotate-180' : ''}`} />
+                                            </button>
+                                        )}
+                                    </div>
+
+                                    {/* Mobile Submenu */}
+                                    {item.subItems && expandedMobileItem === item.name && (
+                                        <div className="bg-white/5 rounded-md mx-3 mb-2 overflow-hidden">
+                                            {item.subItems.map((subItem, idx) => (
+                                                <Link
+                                                    key={idx}
+                                                    href={subItem.path}
+                                                    onClick={() => setIsOpen(false)}
+                                                    className="block px-4 py-3 text-sm text-gray-400 hover:text-white border-l-2 border-transparent hover:border-primary transition-colors"
+                                                >
+                                                    {subItem.name}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         ))}
-                        <div className="pt-4 space-y-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+                        <div className="pt-4 space-y-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
                             <div className="flex items-center text-white px-3 text-sm font-medium">
                                 <Phone size={16} className="text-primary mr-2" />
                                 +971 58 891 9223
