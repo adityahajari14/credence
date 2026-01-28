@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
 
     // Build the URL with query parameters
     // Ensure API_BASE_URL doesn't have trailing slash, then append /projects
-    const baseUrl = API_BASE_URL.endsWith('/') ? API_BASE_URL.slice(0, -1) : API_BASE_URL;
+    const baseUrl = API_BASE_URL!.endsWith('/') ? API_BASE_URL!.slice(0, -1) : API_BASE_URL!;
     const url = new URL(`${baseUrl}/projects`);
     url.searchParams.append('page', page);
     url.searchParams.append('limit', limit);
