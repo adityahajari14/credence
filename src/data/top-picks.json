@@ -1,0 +1,29 @@
+[
+  {
+    "id": "top-1",
+    "title": "Venice Dubai South - Azizi",
+    "developer": "Azizi",
+    "location": "Dubai South",
+    "mainImage": "",
+    "price": 0,
+    "readyDate": ""
+  },
+  {
+    "id": "top-2",
+    "title": "The Edit D3 - Meraas",
+    "developer": "Meraas",
+    "location": "D3",
+    "mainImage": "",
+    "price": 0,
+    "readyDate": ""
+  },
+  {
+    "id": "top-3",
+    "title": "Sakura Gardens - HRE",
+    "developer": "HRE Development",
+    "location": "",
+    "mainImage": "",
+    "price": 0,
+    "readyDate": ""
+  }
+]
