@@ -4,26 +4,26 @@
     "title": "Venice Dubai South - Azizi",
     "developer": "Azizi",
     "location": "Dubai South",
-    "mainImage": "",
-    "price": 0,
-    "readyDate": ""
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2025/12/98/60/9860c303bfc7bde7d8e7e67f29a3a85e.jpg",
+    "price": 2400000,
+    "readyDate": "Q2 2028"
   },
   {
     "id": "top-2",
     "title": "The Edit D3 - Meraas",
     "developer": "Meraas",
     "location": "D3",
-    "mainImage": "",
-    "price": 0,
-    "readyDate": ""
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2025/11/37/b1/37b1b3c77287fba472f863c741fc232b.jpg",
+    "price": 2376000,
+    "readyDate": "Q2 2030"
   },
   {
     "id": "top-3",
     "title": "Sakura Gardens - HRE",
     "developer": "HRE Development",
     "location": "",
-    "mainImage": "",
-    "price": 0,
-    "readyDate": ""
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2025/12/fd/7e/fd7e14c987fc23c0f862a3fb059637b1.jpg",
+    "price": 897750,
+    "readyDate": "Q2 2029"
   }
 ]

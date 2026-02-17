@@ -4,35 +4,35 @@
     "title": "Emaar Expo City Terra woods",
     "developer": "Emaar Properties",
     "location": "Expo City",
-    "mainImage": "",
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2026/2/75/63/7563e228adb49ecac5bc1dc70b714222.jpg",
     "price": 1600000,
-    "readyDate": ""
+    "readyDate": "Q1 2030"
   },
   {
     "id": 1721,
     "title": "Binghatti City Mercedes meydan",
-    "developer": "Binghatti",
+    "developer": "Binghatti Developers",
     "location": "Downtown Dubai",
-    "mainImage": "https://files.alnair.ae/uploads/2025/5/e3/d6/e3d60368a6fa9b70f53bf662b8cef3bd.jpg",
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2024/1/61/68/61689fad3c7fa73971dc52a5611953f7.jpg",
     "price": 10100000,
-    "readyDate": ""
+    "readyDate": "Q4 2026"
   },
   {
     "id": 5895,
     "title": "Damac Lagoon - Valencia Tower",
-    "developer": "Damac",
+    "developer": "Damac Properties",
     "location": "Damac Lagoons",
-    "mainImage": "",
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2026/2/90/c2/90c227ed555209b0aaa3ddd931cd9660.jpg",
     "price": 725000,
-    "readyDate": ""
+    "readyDate": "Q1 2029"
   },
   {
     "id": 5848,
     "title": "Ellington Dubai Island - Meriva",
-    "developer": "Ellington",
+    "developer": "Ellington Properties",
     "location": "Dubai Island",
-    "mainImage": "",
+    "mainImage": "https://files.alnair.ae/uploads/gallery_photo/2026/1/aa/0b/aa0bc9801eab9e3bccf2f264ccfed9a1.jpg",
     "price": 3062828,
-    "readyDate": ""
+    "readyDate": "Q2 2030"
   }
 ]

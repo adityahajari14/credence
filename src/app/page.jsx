@@ -4,7 +4,7 @@ import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import { ArrowRight, MapPin, ChevronDown, ChevronUp, Star, Phone, MessageCircle, Percent, TrendingUp, Award, ShieldCheck, Users, Building2, Globe, ChevronLeft, ChevronRight } from 'lucide-react';
-import { getPaginatedProperties, formatPrice, formatDate } from '@/lib/properties';
+import { formatPrice, formatDate } from '@/lib/properties';
 import Hotspots from '@/components/Hotspots';
 import { openWhatsApp } from '@/utils/whatsappRedirect';
 import { useScrollAnimations } from '@/utils/useScrollAnimation';
@@ -12,14 +12,16 @@ import AnimatedSection from '@/components/AnimatedSection';
 import AnimatedContainer from '@/components/AnimatedContainer';
 import AnimatedItem from '@/components/AnimatedItem';
 import { DEVELOPERS } from '@/utils/developerMapping';
+import recentLaunchesData from '@/data/recent-launches.json';
+import topPicksData from '@/data/top-picks.json';
 
 const HomeContent = () => {
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const router = useRouter();
-    const [recentLaunches, setRecentLaunches] = useState([]);
-    const [topPicks, setTopPicks] = useState([]);
-    const [isLoadingProperties, setIsLoadingProperties] = useState(true);
+    const [recentLaunches, setRecentLaunches] = useState(recentLaunchesData);
+    const [topPicks, setTopPicks] = useState(topPicksData);
+    const [isLoadingProperties, setIsLoadingProperties] = useState(false);
     
     // Initialize scroll animations
     useScrollAnimations();
@@ -79,44 +81,7 @@ const HomeContent = () => {
         }
     }, [searchParams]);
 
-    // Fetch recent launches and top picks from API
-    useEffect(() => {
-        const loadProperties = async () => {
-            setIsLoadingProperties(true);
-            try {
-                // Fetch recent launches - sorted by created_at desc, limit 4
-                const recentResult = await getPaginatedProperties(
-                    {},
-                    1,
-                    4
-                );
-                const recentProps = recentResult.properties || [];
-                console.log('Recent launches loaded:', recentProps.length);
-                setRecentLaunches(recentProps);
-
-                // Fetch top picks - could be featured or top properties, limit 3
-                // For now, we'll use the first 3 properties as top picks
-                // You can modify this to use a specific filter or sorting criteria
-                const topPicksResult = await getPaginatedProperties(
-                    {},
-                    1,
-                    3
-                );
-                const topPicksProps = topPicksResult.properties || [];
-                console.log('Top picks loaded:', topPicksProps.length);
-                setTopPicks(topPicksProps);
-            } catch (error) {
-                console.error('Error loading properties:', error);
-                // Set empty arrays on error
-                setRecentLaunches([]);
-                setTopPicks([]);
-            } finally {
-                setIsLoadingProperties(false);
-            }
-        };
-
-        loadProperties();
-    }, []);
+    // Recent launches and top picks are loaded from static JSON (src/data/recent-launches.json, top-picks.json)
     // Stats
     const stats = [
         { value: "3000+", label: "Properties Sold" },
